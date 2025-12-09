@@ -1,0 +1,201 @@
+body {
+    flex-direction: column;
+}
+
+main {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.search-container .search-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+
+    padding: 10px 20px;
+    background-color: var(--color-dark-500);
+    border: 1px solid var(--color-light-200);
+    border-radius: var(--border-radius);
+    
+    > input {
+        flex: 1;
+        border: none;
+        background-color: transparent;
+        color: var(--color-light-200);
+        font-size: var(--font-size-base-sm);
+        outline: none;
+    }
+
+    > button {
+        background: none;
+        border: none;
+        color: var(--color-light-200);
+        cursor: pointer;
+        transition: var(--transition-fast);
+
+        > img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+}
+
+select {
+    width: 50%;
+    padding: 10px 20px;
+    color: var(--color-grey-100);
+    background-color: var(--color-dark-500);
+    font-size: var(--font-size-base-sm);
+    
+    border: 1px solid var(--color-light-200);
+    border-radius: var(--border-radius);
+
+    appearance: none;
+    background-image: url('../../public/images/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+
+select option {
+    background-color: var(--color-grey-100);
+    color: var(--color-dark-300);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-sm);
+    letter-spacing: 2px;
+}
+
+#movies-grid, #series-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    > h2 {
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-title-2);
+        color: var(--color-light-200);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    
+    background-color: var(--color-dark-300);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.card-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    gap: 10px;
+    width: 100%;
+
+    color: var(--color-grey-100);
+    font-weight: var(--font-weight-regular);
+}
+
+.name-and-fav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+
+    > h3 {
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-base-sm);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-primary);
+        letter-spacing: 1.2px;
+    }
+
+    > button {
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        > img {
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+                transform: scale(1.1);
+                transition: var(--transition-fast);
+            }
+        }
+    }
+}
+
+.genre-and-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tags-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    
+    > .tag {
+        font-size: var(--font-size-base-xsm);
+        background-color: var(--color-dark-500);
+        padding: 4px 8px;
+        border-radius: var(--border-radius);
+        color: var(--color-grey-100);
+        font-family: var(--font-family-base);
+    }
+}

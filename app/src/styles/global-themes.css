@@ -1,0 +1,56 @@
+:root {
+    /* colors */
+    --color-primary: #B96CF5;
+    --color-secondary: #AA48F6;
+
+    --color-orange-100: #FFAF53; /* estrelas */
+
+    /* neutrals */
+    --color-light-100: #ffffff;
+    --color-light-200: #fbf1ff;
+
+    --color-grey-100: #7C7C8A;
+    --color-grey-200: #4D585E;
+
+    --color-dark-300: #192227;
+    --color-dark-500: #000405;
+
+    --color-linear-bg: linear-gradient(180deg, var(--color-dark-300) 0%, var(--color-dark-500) 100%);
+    --color-linear-btn: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 60%);
+
+    /*font-family roboto*/
+    --font-family-base: 'Roboto', sans-serif;
+
+    /* 1rem = 16px */
+    --font-size-base-xlg: 24px; /* 1.5rem */
+    --font-size-base-lg: 22px; /* 1.375rem */
+    --font-size-base-md: 20px; /* 1.25rem */
+    --font-size-base-sm: 18px; /* 1.125rem */
+    --font-size-base-xsm: 14px; /* 0.875rem */
+
+    --font-size-logo-lg: 36px; /* 3rem */
+    --font-size-logo-md: 28px; /* 2.25rem */
+    --font-size-logo-sm: 22px; /* 1.25rem */
+
+    --font-size-title-1: 28px; /* 1.75rem */
+    --font-size-title-2: 22px; /* 1.625rem */
+
+    --font-size-placeholder: 16px; /* 1.25rem */
+
+    --font-weight-thin: 400;
+    --font-weight-regular: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Border Radius */
+    /* 10px = 0.625rem */
+    --border-radius: 10px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+}

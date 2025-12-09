@@ -1,0 +1,15 @@
+{
+  "name": "moview",
+  "version": "1.0.0",
+  "description": "moview app",
+  "authors": [
+    "Larissa Mateini",
+    "Rafela do Carmo"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

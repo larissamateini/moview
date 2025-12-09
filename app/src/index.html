@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moview</title>
+
+    <link rel="shortcut icon" href="../public/images/logo-icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/homepage.css">
+
+</head>
+<body>
+    <header>
+        <div class="wrapped-header-logo">
+            <img src="../public/images/logo-icon.svg" alt="Logo Moview">
+            <p>MO<span>VIEW</span></p>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="/lists">Listas</a></li>
+                <li><a href="/favorites">Favoritos</a></li>
+                <li><a href="/profile">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="pesquise pelo nome" id="name-search" name="name-search">
+                <button type="submit" id="search-btn">
+                    <img src="../public/images/icon-search.svg" alt="Pesquisar">
+                </button>
+            </div>
+            <select name="genero-search" id="genero-search">
+                <option value="" disabled selected>filtre por género</option>
+                <option value="terror">Terror</option>
+                <option value="comedia">Comédia</option>
+                <option value="drama">Drama</option>
+            </select>
+        </div>
+
+        <div class="content-area">
+
+            <div id="movies-grid">
+               <h2>Filmes</h2>
+
+                <div class="cards-container">
+                    <div class="card">
+                        <img class="card-img" src="../public/images/pulp_fiction.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Pulp Fiction</h3>
+                                <button class="fav-btn ">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Drama</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+16</span>
+                                <span class="tag">2h34</span>
+                                <span class="tag">1994</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img class="card-img" src="../public/images/shutter_island.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Shutter Island</h3>
+                                <button class="fav-btn">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Thriller</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+16</span>
+                                <span class="tag">2h18</span>
+                                <span class="tag">2010</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img class="card-img" src="../public/images/avengers.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Avengers</h3>
+                                <button class="fav-btn ">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Ação</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+12</span>
+                                <span class="tag">2h22</span>
+                                <span class="tag">2012</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="series-grid">
+               <h2>Séries</h2>
+
+               <div class="cards-container">
+                    <div class="card">
+                        <img class="card-img" src="../public/images/brooklyn_nine_nine.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Brooklyn Nine-Nine</h3>
+                                <button class="fav-btn">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Comédia</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+10</span>
+                                <span class="tag">22min</span>
+                                <span class="tag">2013</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img class="card-img" src="../public/images/peaky_blinders.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Peaky Blinders</h3>
+                                <button class="fav-btn">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Drama</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+18</span>
+                                <span class="tag">60min</span>
+                                <span class="tag">2013</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img class="card-img" src="../public/images/game_of_thrones.jpg" alt="Poster do filme">
+
+                        <div class="card-info">
+                            <div class="name-and-fav">
+                                <h3>Game of Thrones</h3>
+                                <button class="fav-btn ">
+                                    <img src="../public/images/icon-fav-empty.svg" alt="Botão para favoritar">
+                                </button>
+                            </div>
+
+                            <div class="genre-and-rating">
+                                <p>Fantasia</p>
+                                <div class="rating-wrapper">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                    <img src="../public/images/icon-star.svg" alt="Estrela">
+                                </div>
+                            </div>
+                            <div class="tags-wrapper">
+                                <span class="tag">+18</span>
+                                <span class="tag">50min</span>
+                                <span class="tag">2011</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <span>MOVIEW</span>
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
