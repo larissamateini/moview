@@ -65,12 +65,28 @@ body .div-logo, body .div-form {
     letter-spacing: 2px;
 }
 
-.div-form .wrapped-input input {
+.div-form .wrapped-input input,
+.div-form select {
     padding: 16px 24px;
     border-radius: var(--border-radius);
     background: none;
     box-shadow: none;
     border: 2px solid var(--color-light-200);
+}
+
+.div-form form select {
+    outline: none;
+    appearance: none;
+    background-image: url('../../public/images/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 20px;
+    cursor: pointer;
+
+    letter-spacing: 1px;
+    font-size: var(--font-size-placeholder);
+    color: var(--color-grey-100);
+    opacity: 1;
 }
 
 .div-form .wrapped-input input::placeholder {
@@ -108,8 +124,6 @@ body .div-logo, body .div-form {
         transition: all var(--transition-fast);
     }
 }
-
-.div-form button
 
 .div-form button:active {
     background-color: var(--color-primary);
