@@ -195,7 +195,7 @@ main {
     }
 }
 
-.movie-reviews {
+.movie-reviews, .movie-trailer {
     display: flex;
     flex-direction: column;
 
