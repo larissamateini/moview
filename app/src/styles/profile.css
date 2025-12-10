@@ -1,0 +1,130 @@
+body {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+main {
+    flex-direction: column;
+
+    gap: 30px;
+    margin: 80px 124px;
+}
+
+.page-title-and-back-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    margin-top: 30px;
+
+    > h1 {
+        font-size: var(--font-size-title-2);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-light-200);
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 3px;
+    }
+
+    > .back-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+
+        > img {
+            width: 22px;
+            height: 20px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 60px;
+    max-width: 100%;
+
+    
+    background-color: var(--color-dark-300);
+    color: var(--color-grey-100);
+    padding: 42px 60px;
+    border-radius: var(--border-radius);
+
+    
+    > .profile-info {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+
+        > h2 {
+            color: var(--color-light-200);
+            font-size: var(--font-size-base-lg);
+            letter-spacing: 1.8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        > div {
+            display: flex;
+            flex-direction: row;
+            gap: 6px;
+            width: 100%;
+            font-size: var(--font-size-base-sm);
+            letter-spacing: 1px;
+            color: var(--color-grey-100);
+        }
+
+        > .counters {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    > .profile-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50%;
+        gap: 20px;
+
+        > .profile-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 60px;
+            border: none;
+            border-radius: var(--border-radius);
+
+            background: var(--color-linear-btn);
+            color: var(--color-light-200);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            &:last-child {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            &:hover {
+                opacity: 0.9;
+                transform: scale(1.05);
+                transition: var(--transition-fast);
+            }
+        }
+    }
+}

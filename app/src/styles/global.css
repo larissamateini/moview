@@ -36,11 +36,12 @@ header {
     padding: 16px 124px;
 }
 
-.wrapped-header-logo {
+.wrapped-header-logo a {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 
     > img {
         width: 26px;
@@ -57,6 +58,10 @@ header {
     > span {
         color: var(--color-primary);
     }
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 header nav ul {
@@ -65,19 +70,29 @@ header nav ul {
     align-items: center;
     gap: 32px;
     list-style: none;
+
+    > li {
+        transition: var(--transition-fast);
+
+        &:hover{
+            transform: scale(1.03);
+        }
+    }
 }
 
 header nav ul li a {
     font-size: var(--font-size-base-sm);
+    font-weight: var(--font-weight-thin);
     text-transform: uppercase;
     letter-spacing: 1.8px;
     color: var(--color-light-200);
     text-decoration: none;
-}
+    transition: var(--transition-fast);
 
-header nav ul li a:hover {
-    color: var(--color-primary);
-    transition: var(--transition-base);
+    &:hover {
+        color: var(--color-primary);
+        opacity: 0.9;
+    }
 }
 
 main {
