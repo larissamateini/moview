@@ -1,0 +1,345 @@
+.admin-main {
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 90px;
+    
+    gap: 24px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.admin-header h1 {
+    color: var(--color-light-100);
+    font-size: var(--font-size-title-2);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.admin-btn-add {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: var(--color-linear-btn);
+    color: var(--color-light-100);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base-sm);
+
+    padding: 10px 24px;
+    border-radius: var(--border-radius);
+    transition: var(--transition-base);
+
+    &:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+    }
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.search-container .search-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+
+    padding: 10px 20px;
+    background-color: var(--color-dark-500);
+    border: 1px solid var(--color-light-200);
+    border-radius: var(--border-radius);
+    
+    > input {
+        flex: 1;
+        border: none;
+        background-color: transparent;
+        color: var(--color-light-200);
+        font-size: var(--font-size-base-sm);
+        outline: none;
+    }
+
+    > button {
+        background: none;
+        border: none;
+        color: var(--color-light-200);
+        cursor: pointer;
+        transition: var(--transition-fast);
+
+        > img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+}
+
+select {
+    width: 50%;
+    padding: 10px 20px;
+    color: var(--color-grey-100);
+    background-color: var(--color-dark-500);
+    font-size: var(--font-size-base-sm);
+    
+    border: 1px solid var(--color-light-200);
+    border-radius: var(--border-radius);
+
+    appearance: none;
+    background-image: url('../../public/images/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+
+select option {
+    background-color: var(--color-grey-100);
+    color: var(--color-dark-300);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-sm);
+    letter-spacing: 2px;
+}
+
+.table-container {
+    width: 100%;
+    background-color: var(--color-dark-300);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--color-grey-100);
+}
+
+thead tr th {
+    color: var(--color-light-200);
+    font-size: var(--font-size-base-xsm);
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    padding: 16px;
+    border-bottom: 1px solid var(--color-grey-200);
+
+    > .th-poster {
+        width: 80px;
+    }
+}
+
+.th-poster {
+    width: 80px;
+}
+
+.th-actions {
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--color-dark-500);
+    transition: background-color 0.2s;
+
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 16px;
+    vertical-align: middle;
+    font-size: var(--font-size-base-sm);
+}
+
+.table-thumb {
+    width: 50px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.primary-text {
+    color: var(--color-light-100);
+    font-weight: var(--font-weight-regular);
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-movie {
+    background-color: rgba(185, 108, 245, 0.2);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.badge-serie {
+    background-color: rgba(255, 175, 83, 0.2);
+    color: var(--color-orange-100);
+    border: 1px solid var(--color-orange-100);
+}
+
+.actions-cell {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-action {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: var(--transition-fast);
+}
+
+.btn-edit {
+    background-color: var(--color-dark-500);
+    color: var(--color-primary);
+    border: 1px solid var(--color-grey-200);
+}
+
+.btn-edit:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-delete {
+    background-color: var(--color-dark-500);
+    color: #ff5353;
+    border: 1px solid var(--color-grey-200);
+}
+
+.btn-delete:hover {
+    border-color: #ff5353;
+    background-color: #ff5353;
+    color: white;
+}
+
+nav ul li a.active {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+    position: relative;
+}
+
+nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+}
+
+/* --- Estilos para a tabela de Utilizadores --- */
+
+/* Badge Utilizador (Role) */
+.badge-user {
+    background-color: rgba(124, 124, 138, 0.2);
+    color: var(--color-grey-100);
+    border: 1px solid var(--color-grey-100);
+}
+
+/* Badge Admin (Role) */
+.badge-admin {
+    background-color: rgba(170, 72, 246, 0.2);
+    color: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+}
+
+/* Ajustes de Largura das colunas de Utilizadores */
+.th-id {
+    width: 60px;
+}
+
+.th-user-name {
+    width: 200px;
+}
+
+.th-role {
+    width: 120px;
+}
+
+.th-status {
+    width: 100px;
+}
+
+/* --- Estilos para a tabela de Reviews --- */
+
+/* Estilo para a pré-visualização do comentário na tabela */
+.comment-preview {
+    max-width: 300px; /* Limita a largura do texto */
+    white-space: nowrap; /* Impede quebras de linha */
+    overflow: hidden; /* Oculta o excesso */
+    text-overflow: ellipsis; /* Adiciona "..." no final */
+}
+
+/* --- Estilos para Layout de atores e diretores --- */
+
+.two-tables-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 100%;
+}
+
+.table-group {
+    flex: 1; 
+    min-width: 0; 
+}
+
+.table-title {
+    color: var(--color-light-100); 
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5em; 
+    border-bottom: 2px solid var(--color-grey-500); 
+    padding-bottom: 5px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .two-tables-wrapper {
+        flex-direction: column; 
+    }
+    
+    .table-group {
+        flex: none; 
+        width: 100%;
+    }
+}
