@@ -1,0 +1,151 @@
+{{> partials/backoffice/header }}
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>Gestão de Conteúdos</h1>
+            <a href="/admin/conteudos/new" class="admin-btn-add">
+                <span>+</span> Adicionar Conteúdo
+            </a>
+        </div>
+
+        <div class="search-container admin-filters">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="pesquise por nome ou id" id="admin-search">
+                <button type="submit">
+                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
+                </button>
+            </div>
+            <select name="type-filter" id="type-filter">
+                <option value="all">filtre por tipo</option>
+                <option value="filme">Filmes</option>
+                <option value="serie">Séries</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th class="th-poster">Capa</th>
+                        <th>Título</th>
+                        <th>Tipo</th>
+                        <th>Ano</th>
+                        <th>Classificação</th>
+                        <th>Rating</th>
+                        <th class="th-actions">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#102</td>
+                        <td><img src="/public/images/pulp_fiction.jpg" alt="Poster" class="table-thumb"></td>
+                        <td class="primary-text">Pulp Fiction</td>
+                        <td><span class="badge badge-movie">Filme</span></td>
+                        <td>1994</td>
+                        <td>18+</td>
+                        <td>4.8</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Visualizar">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#105</td>
+                        <td><img src="/public/images/brooklyn_nine_nine.jpg" alt="Poster" class="table-thumb"></td>
+                        <td class="primary-text">Brooklyn Nine-Nine</td>
+                        <td><span class="badge badge-serie">Série</span></td>
+                        <td>2013</td>
+                        <td>L</td>
+                        <td>4.5</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Visualizar">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-header" style="margin-top: 60px;">
+            <h1>Gestão de Géneros</h1> <a href="/admin/generos/new" class="admin-btn-add">
+                <span>+</span> Adicionar Género
+            </a>
+        </div>
+
+        <div class="table-container"> 
+            <table>
+                <thead>
+                    <tr>
+                        <th class="th-id">ID</th>
+                        <th>Nome do Género</th>
+                        <th class="th-actions">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#G1</td>
+                        <td class="primary-text">Ação</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#G2</td>
+                        <td class="primary-text">Comédia</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-header" style="margin-top: 60px;">
+            <h1>Gestão de Listas</h1>
+            <a href="/admin/listas/new" class="admin-btn-add">
+                <span>+</span> Adicionar Lista
+            </a>
+        </div>
+
+        <div class="table-container"> 
+            <table>
+                <thead>
+                    <tr>
+                        <th class="th-id">ID</th>
+                        <th>Nome da Lista</th>
+                        <th>Criada por</th>
+                        <th class="th-actions">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#L1</td>
+                        <td class="primary-text">Top 10 Clássicos</td>
+                        <td>Ana Admin</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#L2</td>
+                        <td class="primary-text">Melhores Séries de 2024</td>
+                        <td>João Silva</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </main>
+
+{{> partials/backoffice/footer }}

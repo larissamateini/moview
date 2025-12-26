@@ -1,0 +1,71 @@
+{{> partials/backoffice/header }}
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>Gestão de Utilizadores</h1>
+            <a href="/admin/utilizadores/new" class="admin-btn-add">
+                <span>+</span> Adicionar
+            </a>
+        </div>
+
+        <div class="search-container admin-filters">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="pesquise por nome, email ou username" id="admin-search">
+                <button type="submit">
+                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
+                </button>
+            </div>
+            <select name="role-filter" id="role-filter">
+                <option value="all">filtre por função (role)</option>
+                <option value="user">Utilizador</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="th-id">ID</th>
+                        <th class="th-user-name">Nome</th>
+                        <th class="th-username">Username</th>
+                        <th>Email</th>
+                        <th>Função</th>
+                        <th class="th-registration-date">Data de Registo</th>
+                        <th class="th-actions">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#001</td>
+                        <td class="primary-text">Ana Admin</td>
+                        <td><span class="primary-text">admin_ana</span></td>
+                        <td>ana.admin@moview.pt</td>
+                        <td>Admin</td>
+                        <td>2024-01-15</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#002</td>
+                        <td class="primary-text">João Silva</td>
+                        <td><span class="primary-text">joaozito123</span></td>
+                        <td>joao.silva@email.com</td>
+                        <td>User</td>
+                        <td>2024-03-22</td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
+                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
+                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+{{> partials/backoffice/footer }}

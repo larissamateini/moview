@@ -1,0 +1,28 @@
+{{> partials/head }}
+<body>
+    <div class="div-form">
+        <h1>LogIn</h1>
+        <form action=>
+            <div class="wrapped-input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="seuemail@email.com" required>
+            </div>
+
+            <div class="wrapped-input">
+                <label for="password">Palavra-passe</label>
+                <input type="password" id="password" name="password" placeholder="sua palavra-passe" required>
+            </div>
+
+            <button type="submit">Entrar</button>
+            <p>Ainda não é cadastrado? <a href="/signup">SignIn</a></p>
+        </form>
+    </div>
+
+    <div class="div-logo">
+        <div class="wrapped-logo">
+            <img src="/public/images/logo-icon.svg" alt="Logo Moview">
+            <p>MO<span>VIEW</span></p>
+        </div>
+    </div>
+</body>
+{{> partials/footer_auth }}

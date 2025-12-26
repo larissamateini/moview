@@ -1,0 +1,96 @@
+{{> partials/backoffice/header }}
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>Gestão de Atores & Diretores</h1>
+            
+            <div class="header-actions">
+                <a href="/admin/diretores/new" class="admin-btn-add btn-director">
+                    <span>+</span> Criar Diretor
+                </a>
+                <a href="/admin/atores/new" class="admin-btn-add btn-actor">
+                    <span>+</span> Criar Ator
+                </a>
+            </div>
+        </div>
+
+        <div class="search-container admin-filters">
+            <div class="search-input-wrapper" style="width: 100%;">
+                <input type="text" placeholder="pesquise por nome de ator ou diretor" id="admin-search">
+                <button type="submit">
+                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
+                </button>
+            </div>
+        </div>
+
+        <div class="two-tables-wrapper">
+            
+            <div class="table-group">
+                <h2 class="table-title">Diretores</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="th-id">ID</th>
+                                <th class="th-person-name">Nome</th>
+                                <th class="th-actions">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#D101</td>
+                                <td class="primary-text">Quentin Tarantino</td>
+                                <td class="actions-cell">
+                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
+                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#D102</td>
+                                <td class="primary-text">Greta Gerwig</td>
+                                <td class="actions-cell">
+                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
+                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="table-group">
+                <h2 class="table-title">Atores</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="th-id">ID</th>
+                                <th class="th-person-name">Nome</th>
+                                <th class="th-actions">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#A201</td>
+                                <td class="primary-text">Ryan Gosling</td>
+                                <td class="actions-cell">
+                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
+                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#A202</td>
+                                <td class="primary-text">Margot Robbie</td>
+                                <td class="actions-cell">
+                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
+                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{{> partials/backoffice/footer }}
