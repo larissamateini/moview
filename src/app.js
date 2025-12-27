@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const db = require('./database/connection');
+// Ajuste do caminho se o db estiver em src/database
+const db = require('./database/connection'); 
 
 db.getConnection()
     .then(conn => {
@@ -20,19 +21,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// config mustache
+// Configuração do Mustache
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
-app.set('views', path.join(__dirname, 'views'));
-app.use('/public', express.static(path.join(__dirname, '../public')));
+// Assume que a pasta views está dentro de src/ (src/views)
+app.set('views', path.join(__dirname, 'views')); 
+// Assume que a public está na raiz do projeto (fora do src)
+app.use('/public', express.static(path.join(__dirname, '../public'))); 
 
-// IMPORTAÇÃO DAS ROTAS
+// IMPORTAÇÃO DAS ROTAS (Caminhos corrigidos assumindo que estás em src/app.js)
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
 
-app.use('/', authRoutes);
-app.use('/', userRoutes);
-app.use('/backoffice', adminRoutes);
+app.use('/', authRoutes);      
+app.use('/', userRoutes);      
+app.use('/backoffice', adminRoutes); 
 
 module.exports = app;

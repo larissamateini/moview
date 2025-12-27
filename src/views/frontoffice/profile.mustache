@@ -10,41 +10,20 @@
 
         <section class="profile-container">
             <div class="profile-info">
-                <h2 class="profile-user-name">Joana Barros</h2>
+                <h2 class="profile-user-name">{{user.nome}}</h2>
                 <div>Username: 
-                    <span class="profile-user-username">joana_barros</span>
+                    <span class="profile-user-username">{{user.username}}</span>
                 </div>
                 <div>Email: 
-                    <span class="profile-user-email">joana.barros@email.com</span>
-                </div>
-                
-                <div class="counters">
-                    <div class="counter">
-                        <span class="profile-user-reviews-counter">3</span> 
-                        reviews
-                    </div>
-                    <div class="counter">
-                        <span class="profile-user-favorites-counter">10</span> 
-                        favoritos</div>
-                    <div class="counter">
-                        <span class="profile-user-lists-counter">6</span> 
-                        listas
-                    </div>
+                    <span class="profile-user-email">{{user.email}}</span>
                 </div>
             </div>
             <div class="profile-options">
-                <button class="profile-btn">
-                    Listas
-                </button>
-                <button class="profile-btn">
-                    Favoritos
-                </button>
-                <button class="profile-btn">
+                <button class="profile-btn" onclick="window.location.href='/logout'">
                     Sign Out
                     <img src="/public/images/icon-sign-out.svg" alt="Sair">
                 </button>
             </div>
-            
         </section>
         
 

@@ -1,8 +1,8 @@
-{{> partials/head }}
+{{> partials/head_global }}
 <body>
     <header>
         <div class="wrapped-header-logo">
-            <a href="/homepage">
+            <a href="/">
                 <img src="/public/images/logo-icon.svg" alt="Logo Moview">
                 <p>MO<span>VIEW</span></p>
             </a>
@@ -10,10 +10,14 @@
 
         <nav>
             <ul>
-                <li><a href="/index" class="active">Início</a></li>
-                <li><a href="/lists">Listas</a></li>
-                <li><a href="/favorites">Favoritos</a></li>
-                <li><a href="/profile">Perfil</a></li>
+                <li>
+                    <a href="/" class="{{#menuHome}}active{{/menuHome}}">Início</a></li>
+                <li>
+                    <a href="/lists" class="{{#menuLists}}active{{/menuLists}}">Listas</a></li>
+                <li>
+                    <a href="/favorites" class="{{#menuFav}}active{{/menuFav}}">Favoritos</a></li>
+                <li>
+                    <a href="/profile" class="{{#menuProfile}}active{{/menuProfile}}">Perfil</a></li>
             </ul>
         </nav>
     </header>

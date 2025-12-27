@@ -3,6 +3,9 @@ body {
 }
 
 main {
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -104,14 +107,16 @@ select option {
         font-weight: var(--font-weight-regular);
         letter-spacing: 2px;
         text-transform: uppercase;
+        margin-top: 32px;
     }
 }
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     gap: 20px;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .card {
@@ -152,13 +157,15 @@ select option {
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+    gap: 8px;
 
     > h3 {
         font-family: var(--font-family-base);
         font-size: var(--font-size-base-sm);
-        font-weight: var(--font-weight-regular);
+        font-weight: var(--font-weight-thin);
         color: var(--color-primary);
         letter-spacing: 1.2px;
+        line-height: 24px;
     }
 
     > button {
@@ -167,7 +174,7 @@ select option {
         cursor: pointer;
 
         > img {
-            width: 20px;
+            width: 18px;
             height: 20px;
 
             &:hover {
@@ -185,10 +192,22 @@ select option {
     align-items: center;
 }
 
+.rating-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: top; 
+    gap: 4px;
+}
+
+.rating-wrapper img {
+    width: 16px;
+    height: 16px;
+}
+
 .tags-wrapper {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 4px;
     
     > .tag {
         font-size: var(--font-size-base-xsm);

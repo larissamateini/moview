@@ -52,7 +52,7 @@ header {
 .wrapped-header-logo a p {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0px;
     font-size: var(--font-size-logo-md);
     color: var(--color-light-100);
     margin-top: 4px;

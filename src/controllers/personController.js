@@ -1,36 +1,17 @@
-const person = require('../models/person');
-
-const personController = {
-    index: async (req, res) => {
-        try {
-            const rows = await person.getAll();
-            res.render('backoffice/diretores-atores', {
-                data: rows,
-                pageTitle: "Gestão de Atores e Diretores"
-            });
-        } catch (error) {
-            console.error(error);
-            res.status(500).send("Erro ao listar atores/diretores");
-        }
-    },
-    create: async (req, res) => {
-        try {
-            await person.create(req.body);
-            res.redirect('/backoffice/diretores-atores');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send("Erro ao criar registo");
-        }
-    },
-    delete: async (req, res) => {
-        try {
-            await person.delete(req.params.id);
-            res.redirect('/backoffice/diretores-atores');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send("Erro ao eliminar registo");
-        }
+const Person = require('../models/person');
+class PersonController {
+    async index(req, res) {
+        const rows = await Person.getAll();
+        res.render('backoffice/diretores-atores', { data: rows, pageTitle: "Staff" });
     }
-};
+    async create(req, res) {
+        await Person.create(req.body);
+        res.status(201).json({ message: "Pessoa criada" });
+    }
+    async delete(req, res) {
+        await Person.delete(req.params.id);
+        res.json({ message: "Registo eliminado" });
+    }
+}
 
-module.exports = personController;
+module.exports = new PersonController();

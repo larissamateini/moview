@@ -1,15 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
-// mainController para a home do utilizador comum
-const mainController = {
-    index: (req, res) => res.render('frontoffice/index', { pageTitle: "Home", pageStyle: "homepage" }),
-    details: (req, res) => res.render('frontoffice/details', { pageTitle: "Detalhes", pageStyle: "details" }),
-    profile: (req, res) => res.render('frontoffice/profile', { pageTitle: "Meu Perfil", pageStyle: "profile" })
-};
+const homeController = require('../controllers/homeController');
+// FRONTOFFICE ROUTES
+// Middleware: Garante que está logado. 
+// Passamos 'user' para garantir que ADMINS não acessam (se a lógica do teu middleware for exclusiva)
+router.use(authMiddleware('user')); 
 
-router.get('/', authMiddleware(), mainController.index);
-router.get('/details', authMiddleware(), mainController.details);
-router.get('/profile', authMiddleware(), mainController.profile);
+// Rota raiz (Home)
+router.get('/', homeController.index);
+
+// Rota de Detalhes Dinâmica
+// Ex: /details/movie/550 ou /details/tv/123
+router.get('/details/:type/:id', homeController.details);
+
+// Perfil
+router.get('/profile', homeController.profile);
 
 module.exports = router;
