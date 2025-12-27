@@ -1,82 +1,38 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const path = require('path');
-const app = express();
+const cookieParser = require('cookie-parser');
 
-//body parser
+const app = express();
+const db = require('./database/connection');
+
+db.getConnection()
+    .then(conn => {
+        console.log("Conectado ao MySQL com sucesso!");
+        conn.release();
+    })
+    .catch(err => {
+        console.error("Erro ao ligar à Base de Dados:", err.message);
+    });
+
+// Configurações e Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// Configuração do motor Mustache
+// config mustache
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
-
-// Servir ficheiros estáticos
 app.use('/public', express.static(path.join(__dirname, '../public')));
 
+// IMPORTAÇÃO DAS ROTAS
+const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const adminRoutes = require('./routes/admin.routes');
 
-// exemplos rotas
-
-// Rota para home
-app.get('/', (req, res) => {
-    res.render('frontoffice/index', {
-        pageTitle: "Moview | Home",
-        pageStyle: "homepage"
-    });
-});
-
-app.get('/details', (req, res) => {
-    res.render('frontoffice/details', {
-        pageTitle: "Moview | Detalhes do Filme",
-        pageStyle: "details"
-    });
-});
-
-app.get('/profile', (req, res) => {
-    res.render('frontoffice/profile', {
-        pageTitle: "Moview | Perfil",
-        pageStyle: "profile"
-    });
-});
-
-
-// Rota para o Signup
-app.get('/signup', (req, res) => {
-    res.render('frontoffice/signup', {
-        pageTitle: "Moview | Sign Up",
-        pageStyle: "form"
-    });
-});
-
-// rotas backoffice
-
-app.get('/backoffice/', (req, res) => {
-    res.render('backoffice/index', {
-        pageTitle: "Backoffice | Conteúdos",
-        pageStyle: "backoffice"
-    });
-});
-
-app.get('/backoffice/utilizadores', (req, res) => {
-    res.render('backoffice/utilizadores', {
-        pageTitle: "Backoffice | Utilizadores",
-        pageStyle: "backoffice"
-    });
-});
-
-app.get('/backoffice/reviews', (req, res) => {
-    res.render('backoffice/reviews', {
-        pageTitle: "Backoffice | Reviews",
-        pageStyle: "backoffice"
-    });
-});
-
-app.get('/backoffice/diretores-atores', (req, res) => {
-    res.render('backoffice/diretores-atores', {
-        pageTitle: "Backoffice | Diretores & Atores",
-        pageStyle: "backoffice"
-    });
-});
+app.use('/', authRoutes);
+app.use('/', userRoutes);
+app.use('/backoffice', adminRoutes);
 
 module.exports = app;

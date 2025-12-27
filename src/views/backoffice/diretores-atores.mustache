@@ -1,96 +1,56 @@
 {{> partials/backoffice/header }}
 
-    <main class="admin-main">
-        <div class="admin-header">
-            <h1>Gestão de Atores & Diretores</h1>
-            
-            <div class="header-actions">
-                <a href="/admin/diretores/new" class="admin-btn-add btn-director">
-                    <span>+</span> Criar Diretor
-                </a>
-                <a href="/admin/atores/new" class="admin-btn-add btn-actor">
-                    <span>+</span> Criar Ator
-                </a>
-            </div>
-        </div>
+<main class="admin-main">
+    <div class="admin-header">
+        <h1>Gestão de Atores e Diretores</h1>
+    </div>
 
-        <div class="search-container admin-filters">
-            <div class="search-input-wrapper" style="width: 100%;">
-                <input type="text" placeholder="pesquise por nome de ator ou diretor" id="admin-search">
-                <button type="submit">
-                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
-                </button>
+    <!-- Inline Form -->
+    <div class="form-container" style="margin-bottom: 20px;">
+        <form action="/backoffice/diretores-atores" method="POST" style="display:flex; gap:10px; align-items:flex-end;">
+            <div class="form-group" style="flex:1;">
+                <label>Nome:</label>
+                <input type="text" name="nome" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label>Cargo:</label>
+                <select name="cargo">
+                    <option value="Ator">Ator</option>
+                    <option value="Diretor">Diretor</option>
+                    <option value="Ambos">Ambos</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit" style="height:40px;">Adicionar</button>
+        </form>
+    </div>
 
-        <div class="two-tables-wrapper">
-            
-            <div class="table-group">
-                <h2 class="table-title">Diretores</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="th-id">ID</th>
-                                <th class="th-person-name">Nome</th>
-                                <th class="th-actions">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#D101</td>
-                                <td class="primary-text">Quentin Tarantino</td>
-                                <td class="actions-cell">
-                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#D102</td>
-                                <td class="primary-text">Greta Gerwig</td>
-                                <td class="actions-cell">
-                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="table-group">
-                <h2 class="table-title">Atores</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="th-id">ID</th>
-                                <th class="th-person-name">Nome</th>
-                                <th class="th-actions">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#A201</td>
-                                <td class="primary-text">Ryan Gosling</td>
-                                <td class="actions-cell">
-                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#A202</td>
-                                <td class="primary-text">Margot Robbie</td>
-                                <td class="actions-cell">
-                                    <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                                    <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </main>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th class="th-actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                <tr>
+                    <td>#{{id}}</td>
+                    <td>{{nome}}</td>
+                    <td>{{cargo}}</td>
+                    <td class="actions-cell">
+                        <a href="/backoffice/diretores-atores/delete/{{id}}" class="btn-action btn-delete" onclick="return confirm('Tem certeza?')">&#128465;</a>
+                    </td>
+                </tr>
+                {{/data}}
+                {{^data}}
+                <tr><td colspan="4">Nenhum registo encontrado.</td></tr>
+                {{/data}}
+            </tbody>
+        </table>
+    </div>
+</main>
 
 {{> partials/backoffice/footer }}

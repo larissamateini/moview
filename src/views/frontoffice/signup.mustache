@@ -9,32 +9,32 @@
 
     <div class="div-form signup">
         <h1>Sign Up</h1>
-        <form>
+        <form action="/signup" method="POST">
             <div class="scroll-wrapper">
                 <div class="wrapped-input su-input">
-                    <label for="name-register">Nome</label>
-                    <input type="text" id="name-register" name="name-register" placeholder="seu nome completo" required>
+                    <label for="fullName">Nome</label>
+                    <input type="text" id="name-register" name="fullName" placeholder="seu nome completo" required>
                 </div>
                 <div class="wrapped-input su-input">
-                    <label for="email-register">Email</label>
-                    <input type="email" id="email-register" name="email-register" placeholder="seuemail@email.com" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email-register" name="email" placeholder="seuemail@email.com" required>
                 </div>
                 <div class="wrapped-input su-input">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" placeholder="escolha um nome de usuário" required>
                 </div>
-                <select class="wrapped-input su-input" name="user-role" id="user-role-register">
+                <select class="wrapped-input su-input" name="role" id="user-role-register">
                     <option value="" disabled selected>escolha o tipo de utilizador</option>
                     <option value="admin">Administrador</option>
                     <option value="user">Utilizador comum</option>
                 </select>
                 <div class="wrapped-input su-input">
                     <label for="password">Palavra-passe</label>
-                    <input type="password" id="password-register" name="password-register" placeholder="defina sua senha" required>
+                    <input type="password" id="password-register" name="password" placeholder="defina sua senha" required>
                 </div>
                 <div class="wrapped-input su-input">
-                    <label for="password-confirm">Confirme sua palavra-passe</label>
-                    <input type="password" id="password-confirm" name="password-confirm" placeholder="confirme sua senha" required>
+                    <label for="confirmPassword">Confirme sua palavra-passe</label>
+                    <input type="password" id="password-confirm" name="confirmPassword" placeholder="confirme sua senha" required>
                 </div>
             </div>
 
