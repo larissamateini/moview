@@ -1,30 +1,52 @@
 {{> partials/frontoffice/header }}
 
-    <main>
-        <section class="page-title-and-back-btn">
-            <button class="back-btn">
-                <img src="/public/images/icon-back.svg" alt="Botão Voltar">
-            </button>
-            <h1>Perfil</h1>
-        </section>
+<main>
+    <section class="page-title-and-back-btn">
+        <button class="back-btn">
+            <img src="/public/images/icon-back.svg" alt="Botão Voltar">
+        </button>
+        <h1>Perfil</h1>
+    </section>
 
-        <section class="profile-container">
-            <div class="profile-info">
-                <h2 class="profile-user-name">{{user.nome}}</h2>
-                <div>Username: 
-                    <span class="profile-user-username">{{user.username}}</span>
+    <section class="profile-container">
+        <div class="profile-info">
+            <h2 class="profile-user-name">{{user.name}}</h2>
+            <div>Username: 
+                <span class="profile-user-username">{{user.username}}</span>
+            </div>
+            <div>Email: 
+                <span class="profile-user-email">{{user.email}}</span>
+            </div>
+            
+            <div class="counters">
+                <div class="counter">
+                    <span class="profile-user-reviews-counter">0</span> 
+                    reviews
                 </div>
-                <div>Email: 
-                    <span class="profile-user-email">{{user.email}}</span>
+                <div class="counter">
+                    <span class="profile-user-favorites-counter">0</span> 
+                    favoritos
+                </div>
+                <div class="counter">
+                    <span class="profile-user-lists-counter">0</span> 
+                    listas
                 </div>
             </div>
-            <div class="profile-options">
-                <button class="profile-btn" onclick="window.location.href='/logout'">
-                    Sign Out
-                    <img src="/public/images/icon-sign-out.svg" alt="Sair">
-                </button>
-            </div>
-        </section>
-        
+        </div>
+
+        <div class="profile-options">
+            <button class="profile-btn" onclick="window.location.href='/lists'">
+                Listas
+            </button>
+            <button class="profile-btn" onclick="window.location.href='/favorites'">
+                Favoritos
+            </button>
+            <button class="profile-btn" onclick="window.location.href='/logout'">
+                Sign Out
+                <img src="/public/images/icon-sign-out.svg" alt="Sair">
+            </button>
+        </div>
+    </section>
+</main>
 
 {{> partials/frontoffice/footer }}

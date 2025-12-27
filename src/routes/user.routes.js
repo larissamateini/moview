@@ -4,14 +4,13 @@ const authMiddleware = require('../middleware/authMiddleware');
 const homeController = require('../controllers/homeController');
 // FRONTOFFICE ROUTES
 // Middleware: Garante que está logado. 
-// Passamos 'user' para garantir que ADMINS não acessam (se a lógica do teu middleware for exclusiva)
+// Passamos 'user' para garantir que ADMINS não acessam
 router.use(authMiddleware('user')); 
 
 // Rota raiz (Home)
 router.get('/', homeController.index);
 
-// Rota de Detalhes Dinâmica
-// Ex: /details/movie/550 ou /details/tv/123
+// Rota de Detalhes (acompanha a api externa que categoriza em movie e tv)
 router.get('/details/:type/:id', homeController.details);
 
 // Perfil

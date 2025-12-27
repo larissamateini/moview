@@ -1,4 +1,4 @@
-const Person = require('../models/person');
+const Person = require('../models/Person');
 class PersonController {
     async index(req, res) {
         const rows = await Person.getAll();

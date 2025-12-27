@@ -1,4 +1,6 @@
 const { tmdbService, getGenreName } = require('../services/tmdbService');
+const Utilizador = require('../models/Utilizador');
+
 
 class HomeController {
     async index(req, res) {
@@ -40,8 +42,12 @@ class HomeController {
         try {
             const { type, id } = req.params;
             const item = await tmdbService.getDetails(type, id);
+
+            if (!item) {
+                return res.status(404).send("Conteúdo não encontrado");
+            }
             
-            // Aqui também deves formatar o rating para a página de detalhes
+            // formata o rating 
             if (item && item.vote_average) {
                 item.vote_average = item.vote_average.toFixed(1);
             }
@@ -50,21 +56,39 @@ class HomeController {
                 pageTitle: item.title || item.name, 
                 pageStyle: "details",
                 pageScript: "details",
-                item // Não esqueças de enviar o 'item' para o mustache!
+                item: item,
+                user: req.user
             });
         } catch (error) {
-            res.status(404).send("Conteúdo não encontrado");
+            console.error(error);
+            res.status(500).send("Erro ao carregar detalhes");
         }
     }
 
-    profile(req, res) {
-        res.render('frontoffice/profile', { 
-            pageTitle: "Meu Perfil", 
-            pageStyle: "profile",
-            pageScript: "profile",
-            user: req.user,
-            menuProfile: true
-        });
+    async profile(req, res) {
+        try {
+            // req.user vem do teu token/sessão com {id, role}
+            const userData = await Utilizador.getById(req.user.id);
+
+            if (!userData) {
+                return res.redirect('/login');
+            }
+
+            res.render('frontoffice/profile', { 
+                pageTitle: "Meu Perfil", 
+                pageStyle: "profile",
+                pageScript: "profile",
+                // Combinamos os dados do token com os dados da DB
+                user: {
+                    ...req.user,
+                    ...userData
+                },
+                menuProfile: true
+            });
+        } catch (error) {
+            console.error("Erro ao carregar perfil:", error);
+            res.status(500).send("Erro ao carregar os dados do utilizador.");
+        }
     }
 }
 
