@@ -38,6 +38,17 @@ class Review {
         const [result] = await db.query("DELETE FROM reviews WHERE id = ?", [id]);
         return result;
     }
+
+    static async getByContentId(conteudo_id) {
+    const query = `
+        SELECT r.*, u.name as nome_utilizador, u.username 
+        FROM reviews r 
+        JOIN utilizadores u ON r.utilizador_id = u.id 
+        WHERE r.conteudo_id = ? 
+        ORDER BY r.id DESC`; // As mais recentes aparecem primeiro
+    const [rows] = await db.query(query, [conteudo_id]);
+    return rows;
+}
 }
 
 module.exports = Review;

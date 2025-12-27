@@ -1,6 +1,6 @@
 const { tmdbService, getGenreName } = require('../services/tmdbService');
 const Utilizador = require('../models/Utilizador');
-
+const Review = require('../models/Review');
 
 class HomeController {
     async index(req, res) {
@@ -43,25 +43,57 @@ class HomeController {
             const { type, id } = req.params;
             const item = await tmdbService.getDetails(type, id);
 
-            if (!item) {
-                return res.status(404).send("Conteúdo não encontrado");
-            }
+            if (!item) return res.status(404).send("Conteúdo não encontrado.");
             
-            // formata o rating 
-            if (item && item.vote_average) {
-                item.vote_average = item.vote_average.toFixed(1);
+            // Diretor e Elenco (Top 3)
+            const director = item.credits?.crew.find(person => person.job === 'Director');
+            const cast = item.credits?.cast.slice(0, 3).map(actor => actor.name).join(', ');
+
+            // Trailer (YouTube)
+            const trailer = item.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+
+            // Classificação Etária
+            let classification = "N/A";
+            if (type === 'movie' && item.release_dates?.results) {
+                const cert = item.release_dates.results
+                    .find(r => r.iso_3166_1 === 'PT' || r.iso_3166_1 === 'US');
+                classification = cert?.release_dates[0]?.certification;
+
+            } else if (type === 'tv' && item.content_ratings?.results) {
+                const cert = item.content_ratings.results
+                    .find(r => r.iso_3166_1 === 'PT' || r.iso_3166_1 === 'US');
+                classification = cert?.rating;
             }
 
-            res.render('frontoffice/details', { 
-                pageTitle: item.title || item.name, 
+            // formata o rating 
+            const rating = Number(item.vote_average);
+            const formattedRating = !isNaN(rating) ? rating.toFixed(1) : "0.0";
+
+            // formata apenas o ano
+            const releaseDate = item.release_date || item.first_air_date;
+            const releaseYear = releaseDate ? releaseDate.split('-')[0] : 'N/A';
+
+            const reviews = await Review.getByContentId(id);
+
+            res.render('frontoffice/details', {
+                pageTitle: item.title? item.title : item.name, 
                 pageStyle: "details",
                 pageScript: "details",
-                item: item,
+                item: {
+                    ...item,
+                    release_year: releaseYear,
+                    vote_average: formattedRating,
+                    director: director ? director.name : "Desconhecido",
+                    main_cast: cast,
+                    classification: classification || "+12"
+                },
+                trailerKey: trailer ? trailer.key : null,
+                reviews: reviews,
                 user: req.user
             });
         } catch (error) {
             console.error(error);
-            res.status(500).send("Erro ao carregar detalhes");
+            res.status(500).send("Erro ao carregar detalhes.");
         }
     }
 

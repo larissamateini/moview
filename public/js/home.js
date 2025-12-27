@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     favButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation(); // Impede de abrir os detalhes ao clicar em fav
-            const img = btn.querySelector('img');
+            const img = this.querySelector('img');
             if (img.src.includes('empty')) {
                 img.src = '/public/images/icon-fav-full.svg';
             } else {

@@ -34,20 +34,19 @@ CREATE TABLE IF NOT EXISTS conteudos (
 CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     utilizador_id INT,
-    conteudo_id INT,
-    classificacao INT CHECK (classificacao BETWEEN 1 AND 5),
+    conteudo_id INT, -- Aqui guardaremos o ID que vem do TMDB
+    classificacao INT CHECK (classificacao BETWEEN 1 AND 10), -- Ajustado para 1-10 (padrão TMDB)
     critica TEXT,
     votos_utilidade INT DEFAULT 0,
     data_review TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE,
-    FOREIGN KEY (conteudo_id) REFERENCES conteudos(id) ON DELETE CASCADE
+    FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE
+    -- Removemos a FK de conteudos para permitir comentar filmes da API
 );
 
--- 5. Favoritos 
+-- 5. Favoritos
 CREATE TABLE IF NOT EXISTS favoritos (
     utilizador_id INT,
-    conteudo_id INT,
+    conteudo_id INT, -- ID do TMDB
     PRIMARY KEY (utilizador_id, conteudo_id),
-    FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE,
-    FOREIGN KEY (conteudo_id) REFERENCES conteudos(id) ON DELETE CASCADE
+    FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE
 );

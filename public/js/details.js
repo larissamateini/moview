@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Favoritos nos cards
+    const favButtons = document.querySelectorAll('.favorite-btn');
+    favButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const img = this.querySelector('img');
+            if (img.src.includes('empty')) {
+                img.src = '/public/images/icon-fav-full.svg';
+            } else {
+                img.src = '/public/images/icon-fav-empty.svg';
+            }
+        });
+    });
+
     // Sistema de Like nas Reviews
     const reviewBtns = document.querySelectorAll('.review-btn');
     reviewBtns.forEach(btn => {

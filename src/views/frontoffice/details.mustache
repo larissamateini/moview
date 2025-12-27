@@ -1,198 +1,111 @@
 {{> partials/frontoffice/header }}
 
-    <main>
-        <section class="page-title-and-back-btn">
-            <button class="back-btn">
-                <img src="/public/images/icon-back.svg" alt="Botão Voltar">
-            </button>
-            <h1>Detalhes</h1>
-        </section>
-        <section class="movie-details">
+<main>
+    <section class="page-title-and-back-btn">
+        <button class="back-btn">
+            <img src="/public/images/icon-back.svg" alt="Botão Voltar">
+        </button>
+        <h1>Detalhes</h1>
+    </section>
 
-            <img class="movie-poster" src="/public/images/pulp_fiction.jpg" alt="Poster do Filme">
+    <section class="movie-details">
+        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Poster de {{item.title}}{{item.name}}">
 
-            <div class="movie-info">
-                <div class="movie-details-one">
-                    <div class="movie-title-and-fav">
-                        <h2>Pulp Fiction</h2>
-                        <button class="favorite-btn">
-                            <img src="/public/images/icon-fav-full.svg" alt="Botão de Favorito">
+        <div class="movie-info">
+            <div class="movie-details-one">
+                <div class="movie-title-and-fav">
+                    <h2>{{item.title}}{{item.name}}</h2>
+                    <button class="favorite-btn">
+                        <img src="/public/images/icon-fav-empty.svg" alt="Botão de Favorito">
+                    </button>
+                </div>
+                <div class="details-rating-wrapper">
+                    <img src="/public/images/icon-star.svg" alt="Estrela">
+                    <span>{{item.vote_average}}</span>
+                </div>
+            </div>
+
+            <div class="movie-details-two">
+                <span class="movie-genre">
+                    {{#item.genres}}{{name}}, {{/item.genres}}
+                </span>
+                <div class="info-two">
+                    <span class="movie-release-year">{{item.release_year}}</span>
+                    <span class="movie-duration">
+                        {{#item.runtime}}{{item.runtime}}min{{/item.runtime}}
+                        {{#item.number_of_seasons}}{{item.number_of_seasons}} Temp.{{/item.number_of_seasons}}
+                    </span>
+                    <span class="movie-classification">{{item.classification}}</span>
+                </div>
+            </div>
+
+            <p class="movie-description">
+                {{item.overview}}
+                {{^item.overview}}Sinopse não disponível para este título.{{/item.overview}}
+            </p>
+
+            <div class="movie-details-three">
+                <div class="director-wrapper">
+                    <span class="label-director">Dirigido por </span>
+                    <span class="movie-director">{{item.director}}</span>
+                </div>
+                <p class="label-cast">Elenco principal</p>
+                <p class="movie-cast">{{item.main_cast}}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="movie-trailer">
+        <h3>Trailer</h3>
+        {{#trailerKey}}
+        <iframe height="400" 
+            src="https://www.youtube.com/embed/{{trailerKey}}" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+        {{/trailerKey}}
+        {{^trailerKey}}
+        <p>Trailer indisponível no momento.</p>
+        {{/trailerKey}}
+    </section>
+
+    <section class="movie-reviews">
+        <h3>Reviews</h3>
+        <div class="movies-reviews-wrapper">
+            {{#reviews}}
+            <div class="review-card">
+                <div class="movie-review-wrapper-one">
+                    <span class="user-name">{{nome_utilizador}}</span>
+                    <div class="thumbs-up-counter-wrapper">
+                        <button class="review-btn">
+                            <img src="/public/images/icon-thumbs-up.svg" alt="Like">
                         </button>
-                    </div>
-                    <div class="details-rating-wrapper">
-                        <img src="/public/images/icon-star.svg" alt="Estrela">
-                        <img src="/public/images/icon-star.svg" alt="Estrela">
-                        <img src="/public/images/icon-star.svg" alt="Estrela">
-
+                        <span class="thumbs-up-counter">0</span>
                     </div>
                 </div>
 
-                <div class="movie-details-two">
-                    <span class="movie-genre">Drama</span>
-                    <div class="info-two">
-                        <span class="movie-release-year">1994</span>
-                        <span class="movie-duration">2h34min</span>
-                        <span class="movie-classification">+16</span>
+                <div class="movie-review-wrapper-two">
+                    <span class="user-username">@{{username}}</span>
+                    <span class="review-date">{{data_formatada}}</span>
+                </div>
+
+                <div class="movie-review-wrapper-three">
+                    <span class="movie-title">{{item.title}}{{item.name}}</span>
+                    <div class="user-rating-wrapper">
+                        <span>⭐ {{classificacao}}/10</span>
                     </div>
                 </div>
 
-                <p class="movie-description">
-                    Um thriller que interliga a vida de vários personagens em Los Angeles em histórias não-lineares: 
-                    dois assassinos profissionais que têm uma missão para seu chefe gângster, a esposa deste gângster, 
-                    um pugilista em apuros e um casal de assaltantes de lanchonete. É uma mistura de marginalidade, 
-                    ironia e humor negro.
-                </p>
-
-                <div class="movie-details-three">
-                    <div class="director-wrapper">
-                        <span class="label-director">Dirigido por </span>
-                        <span class="movie-director">Quentin Tarantino</span>
-                    </div>
-                    <p class="label-cast">Elenco principal</p>
-                    <p class="movie-cast">John Travolta, Samuel L. Jackson, Uma Thurman</p>
-                </div>
+                <p class="user-review-comment">{{critica}}</p>
             </div>
-        </section>
-
-        <section class="movie-trailer">
-            <h3>Trailer</h3>
-            <iframe height="400" 
-                src="https://www.youtube.com/embed/s7EdQ4FqbhY?si=5c5MlyJ8DjcJk9K4" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </iframe>
-        </section>
-
-        <section class="movie-reviews">
-            <h3>Reviews</h3>
-            <div class="movies-reviews-wrapper">
-                
-                <div class="review-card">
-
-                    <div class="movie-review-wrapper-one">
-                        <span class="user-name">Joana Barros</span>
-                        <div class="thumbs-up-counter-wrapper">
-                            <button class="review-btn">
-                                <img src="/public/images/icon-thumbs-up.svg" alt="Like">
-                            </button>
-                            <span class="thumbs-up-counter">24</span>
-                        </div>
-                    </div>
-
-                    <div class="movie-review-wrapper-two">
-                        <span class="user-username">joana_barros</span>
-                        <span class="review-date">01/03/2025</span>
-                    </div>
-
-                    <div class="movie-review-wrapper-three">
-                        <span class="movie-title">Pulp Fiction</span>
-                        <div class="user-rating-wrapper">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                        </div>
-                    </div>
-
-                    <p class="user-review-comment">
-                        A narrativa não-linear e os diálogos afiados de Tarantino criam uma experiência cinematográfica única. 
-                        A trilha sonora é icónica e complementa perfeitamente cada cena. Recomendo a todos que apreciam um bom filme.
-                    </p>
-                </div>
-
-                <div class="review-card">
-
-                    <div class="movie-review-wrapper-one">
-                        <span class="user-name">Carlos Silva</span>
-                        <div class="thumbs-up-counter-wrapper">
-                            <button class="review-btn">
-                                <img src="/public/images/icon-thumbs-up.svg" alt="Like">
-                            </button>
-                            <span class="thumbs-up-counter">9</span>
-                        </div>
-                    </div>
-
-                    <div class="movie-review-wrapper-two">
-                        <span class="user-username">carlos.s</span>
-                        <span class="review-date">22/04/2025</span>
-                    </div>
-
-                    <div class="movie-review-wrapper-three">
-                        <span class="movie-title">Pulp Fiction</span>
-                        <div class="user-rating-wrapper">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                        </div>
-                    </div>
-
-                    <p class="user-review-comment">
-                        A mistura de humor e a violência é excessiva demais para meu gosto. Apesar da reputação, achei o filme arrastado em algumas partes.
-                    </p>
-                </div>
-
-                <div class="review-card">
-
-                    <div class="movie-review-wrapper-one">
-                        <span class="user-name">Carlos Silva</span>
-                        <div class="thumbs-up-counter-wrapper">
-                            <button class="review-btn">
-                                <img src="/public/images/icon-thumbs-up.svg" alt="Like">
-                            </button>
-                            <span class="thumbs-up-counter">9</span>
-                        </div>
-                    </div>
-
-                    <div class="movie-review-wrapper-two">
-                        <span class="user-username">carlos.s</span>
-                        <span class="review-date">22/04/2025</span>
-                    </div>
-
-                    <div class="movie-review-wrapper-three">
-                        <span class="movie-title">Pulp Fiction</span>
-                        <div class="user-rating-wrapper">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                        </div>
-                    </div>
-
-                    <p class="user-review-comment">
-                        A mistura de humor e a violência é excessiva demais para meu gosto. Apesar da reputação, achei o filme arrastado em algumas partes.
-                    </p>
-                </div>
-
-                <div class="review-card">
-
-                    <div class="movie-review-wrapper-one">
-                        <span class="user-name">Carlos Silva</span>
-                        <div class="thumbs-up-counter-wrapper">
-                            <button class="review-btn">
-                                <img src="/public/images/icon-thumbs-up.svg" alt="Like">
-                            </button>
-                            <span class="thumbs-up-counter">9</span>
-                        </div>
-                    </div>
-
-                    <div class="movie-review-wrapper-two">
-                        <span class="user-username">carlos.s</span>
-                        <span class="review-date">22/04/2025</span>
-                    </div>
-
-                    <div class="movie-review-wrapper-three">
-                        <span class="movie-title">Pulp Fiction</span>
-                        <div class="user-rating-wrapper">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                            <img src="/public/images/icon-star.svg" alt="Estrela">
-                        </div>
-                    </div>
-
-                    <p class="user-review-comment">
-                        A mistura de humor e a violência é excessiva demais para meu gosto. Apesar da reputação, achei o filme arrastado em algumas partes.
-                    </p>
-                </div>
-
-            </div>
-        </section>
-        
+            {{/reviews}}
+            {{^reviews}}
+            <p>Ainda não há reviews para este conteúdo. Seja o primeiro a comentar!</p>
+            {{/reviews}}
+        </div>
+    </section>
+</main>
 
 {{> partials/frontoffice/footer }}

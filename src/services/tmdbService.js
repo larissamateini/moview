@@ -35,10 +35,15 @@ const tmdbService = {
     // Buscar detalhes de um conteúdo específico (para a página de detalhes)
     getDetails: async (type, id) => {
         try {
-            const response = await api.get(`/${type}/${id}`);
+            // detalhes, créditos (elenco/direção) e vídeos
+            const response = await api.get(`/${type}/${id}`, {
+                params: {
+                    append_to_response: 'credits,videos,release_dates,content_ratings'
+                }
+            });
             return response.data;
         } catch (error) {
-            console.error(`Erro ao buscar detalhes do ${type}:`, error);
+            console.error("Erro ao buscar detalhes no TMDB:", error);
             return null;
         }
     }
