@@ -230,3 +230,9 @@ select option {
         font-family: var(--font-family-base);
     }
 }
+
+.no-results {
+    color: var(--color-grey-200);
+    display: flex;
+    width: 100%;
+}

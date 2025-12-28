@@ -336,6 +336,18 @@ nav ul li a.active::after {
     align-items: center;
 }
 
+.badge-diretor {
+    background-color: rgba(185, 108, 245, 0.2);
+    color: #b96cf5; /* Ou var(--color-primary) */
+    border: 1px solid #b96cf5;
+}
+
+.badge-ator {
+    background-color: rgba(255, 175, 83, 0.2);
+    color: #ffaf53; /* Ou var(--color-orange-100) */
+    border: 1px solid #ffaf53;
+}
+
 @media (max-width: 900px) {
     .two-tables-wrapper {
         flex-direction: column; 

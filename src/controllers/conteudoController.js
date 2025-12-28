@@ -6,7 +6,8 @@ class ConteudoController {
             const rows = await Conteudo.getAll();
             res.render('backoffice/conteudos', {
                 data: rows,
-                pageTitle: "Gerir Filmes"
+                pageTitle: "Gestor de Conteúdos",
+                pageStyle: "backoffice"
             });
         } catch (error) {
             res.status(500).send("Erro ao listar conteúdos");

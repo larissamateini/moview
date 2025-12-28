@@ -1,16 +1,44 @@
 const Person = require('../models/Person');
+
 class PersonController {
     async index(req, res) {
+    try {
         const rows = await Person.getAll();
-        res.render('backoffice/diretores-atores', { data: rows, pageTitle: "Staff" });
+        
+        // Mapeamos os dados para adicionar as flags de CSS
+        const formattedData = rows.map(person => ({
+            ...person,
+            isDiretor: person.cargo === 'Diretor',
+            isAtor: person.cargo === 'Ator'
+        }));
+
+        res.render('backoffice/diretores-atores', { 
+            data: formattedData, 
+            pageTitle: "Gestão de Diretores & Atores",
+            pageStyle: "backoffice",
+            pageScript: "diretores-atores"
+        });
+    } catch (error) {
+        res.status(500).send("Erro ao carregar atores e diretores.");
     }
+}
+
     async create(req, res) {
-        await Person.create(req.body);
-        res.status(201).json({ message: "Pessoa criada" });
+        try {
+            await Person.create(req.body);
+            res.redirect('/backoffice/diretores-atores');
+        } catch (error) {
+            res.status(500).send("Erro ao criar ator/diretor");
+        }
     }
+
     async delete(req, res) {
-        await Person.delete(req.params.id);
-        res.json({ message: "Registo eliminado" });
+        try {
+            await Person.delete(req.params.id);
+            res.redirect('/backoffice/diretores-atores');
+        } catch (error) {
+            res.status(500).send("Erro ao eliminar");
+        }
     }
 }
 

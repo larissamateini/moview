@@ -14,7 +14,7 @@ class Person {
     static async create(data) {
         const { nome, cargo } = data;
         const [result] = await db.query(
-            "INSERT INTO atores_diretores (nome, cargo) VALUES (?, ?)",
+            "INSERT INTO atores_diretores (name, role) VALUES (?, ?)",
             [nome, cargo]
         );
         return result;
@@ -23,7 +23,7 @@ class Person {
     static async update(id, data) {
         const { nome, cargo } = data;
         const [result] = await db.query(
-            "UPDATE atores_diretores SET nome=?, cargo=? WHERE id=?",
+            "UPDATE atores_diretores SET name=?, rolw=? WHERE id=?",
             [nome, cargo, id]
         );
         return result;

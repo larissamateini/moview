@@ -1,5 +1,4 @@
 {{> partials/backoffice/header }}
-
     <main class="admin-main">
         <div class="admin-header">
             <h1>Gestão de Conteúdos</h1>
@@ -10,13 +9,13 @@
 
         <div class="search-container admin-filters">
             <div class="search-input-wrapper">
-                <input type="text" placeholder="pesquise por nome ou id" id="admin-search">
+                <input type="text" placeholder="pesquise por id" id="admin-search">
                 <button type="submit">
                     <img src="/public/images/icon-search.svg" alt="Pesquisar">
                 </button>
             </div>
             <select name="type-filter" id="type-filter">
-                <option value="all">filtre por tipo</option>
+                <option value="all">tipo de conteúdo</option>
                 <option value="filme">Filmes</option>
                 <option value="serie">Séries</option>
             </select>
@@ -27,11 +26,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th class="th-poster">Capa</th>
+                        <th class="th-poster">Poster</th>
                         <th>Título</th>
                         <th>Tipo</th>
                         <th>Ano</th>
-                        <th>Classificação</th>
+                        <th>Classif.</th>
                         <th>Rating</th>
                         <th class="th-actions">Ações</th>
                     </tr>

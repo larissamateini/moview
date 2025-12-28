@@ -2,51 +2,48 @@
 
 <main class="admin-main">
     <div class="admin-header">
-        <h1>Gestão de Atores e Diretores</h1>
+        <h1>Gestão de Diretores & Atores</h1>
+        <a href="/backoffice/diretores-atores/new" class="admin-btn-add">
+            <span>+</span> Adicionar
+        </a>
     </div>
 
-    <!-- Inline Form -->
-    <div class="form-container" style="margin-bottom: 20px;">
-        <form action="/backoffice/diretores-atores" method="POST" style="display:flex; gap:10px; align-items:flex-end;">
-            <div class="form-group" style="flex:1;">
-                <label>Nome:</label>
-                <input type="text" name="nome" required>
-            </div>
-            <div class="form-group">
-                <label>Cargo:</label>
-                <select name="cargo">
-                    <option value="Ator">Ator</option>
-                    <option value="Diretor">Diretor</option>
-                    <option value="Ambos">Ambos</option>
-                </select>
-            </div>
-            <button type="submit" class="btn-submit" style="height:40px;">Adicionar</button>
-        </form>
+    <div class="search-container">
+        <select id="filter-role">
+            <option value="">todos os cargos</option>
+            <option value="Ator">Atores</option>
+            <option value="Diretor">Diretores</option>
+        </select>
     </div>
 
     <div class="table-container">
-        <table>
+        <table id="staff-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th class="th-id">ID</th>
                     <th>Nome</th>
-                    <th>Cargo</th>
+                    <th class="th-role">Cargo</th>
                     <th class="th-actions">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {{#data}}
-                <tr>
+                <tr class="staff-row" data-role="{{cargo}}">
                     <td>#{{id}}</td>
-                    <td>{{nome}}</td>
-                    <td>{{cargo}}</td>
+                    <td class="primary-text">{{nome}}</td>
+                    <td>
+                        <span class="badge {{#isDiretor}}badge-diretor{{/isDiretor}} {{#isAtor}}badge-ator{{/isAtor}}">
+                            {{cargo}}
+                        </span>
+                    </td>
                     <td class="actions-cell">
-                        <a href="/backoffice/diretores-atores/delete/{{id}}" class="btn-action btn-delete" onclick="return confirm('Tem certeza?')">&#128465;</a>
+                        <button class="btn-action btn-edit" onclick="editarStaff('{{id}}')">&#9998;</button>
+                        <a href="/backoffice/diretores-atores/delete/{{id}}" class="btn-action btn-delete" onclick="return confirm('Eliminar este registo?')">&#128465;</a>
                     </td>
                 </tr>
                 {{/data}}
                 {{^data}}
-                <tr><td colspan="4">Nenhum registo encontrado.</td></tr>
+                <tr><td colspan="4" style="text-align: center;">Nenhum registo encontrado.</td></tr>
                 {{/data}}
             </tbody>
         </table>
