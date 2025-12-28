@@ -9,12 +9,40 @@ const api = axios.create({
 });
 
 const tmdbService = {
+    search: async (query) => {
+        try {
+            const response = await api.get('/search/multi', {
+                params: { query: query }
+            });
+            return response.data.results;
+        } catch (error) {
+            console.error("Erro na pesquisa TMDB:", error);
+            return [];
+        }
+    },
+    // NOVO: Busca Global por Género (Filmes + Séries)
+    discoverGlobal: async (genreId) => {
+        try {
+            const [movies, tv] = await Promise.all([
+                api.get('/discover/movie', { params: { with_genres: genreId } }),
+                api.get('/discover/tv', { params: { with_genres: genreId } })
+            ]);
+            
+            // Adicionamos manualmente o media_type, pois o endpoint discover nao traz
+            const moviesList = movies.data.results.map(m => ({ ...m, media_type: 'movie' }));
+            const tvList = tv.data.results.map(t => ({ ...t, media_type: 'tv' }));
+            
+            return [...moviesList, ...tvList];
+        } catch (error) {
+            console.error("Erro no discover TMDB:", error);
+            return [];
+        }
+    },
     getPopularMovies: async () => {
         try {
             const response = await api.get('/movie/popular');
             return response.data.results;
         } catch (error) {
-            console.error("Erro ao buscar filmes no TMDB:", error);
             return [];
         }
     },
@@ -23,7 +51,6 @@ const tmdbService = {
             const response = await api.get('/tv/popular');
             return response.data.results;
         } catch (error) {
-            console.error("Erro ao buscar séries no TMDB:", error);
             return [];
         }
     },
@@ -37,16 +64,12 @@ const tmdbService = {
             });
             
             let data = response.data;
-
-            // FALLBACK: Se a sinopse estiver vazia em PT, busca em EN
             if (!data.overview || data.overview.trim() === "") {
                 const enRes = await api.get(`/${type}/${id}`, { params: { language: 'en-US' } });
                 data.overview = enRes.data.overview;
             }
-
             return data;
         } catch (error) {
-            console.error("Erro ao buscar detalhes no TMDB:", error);
             return null;
         }
     }

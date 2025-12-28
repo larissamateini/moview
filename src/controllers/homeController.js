@@ -10,6 +10,12 @@ class HomeController {
                 tmdbService.getPopularShows()
             ]);
 
+            // Mapeamento de géneros para o Select da Home funcionar também
+            const generos = Object.values(GENRE_MAP).sort().map(gName => ({
+                name: gName,
+                isSelected: false
+            }));
+
             const formatItem = (item, type) => {
                 const date = item.release_date || item.first_air_date;
                 return {
@@ -24,7 +30,6 @@ class HomeController {
 
             const filmes = rawFilmes.slice(0, 10).map(f => formatItem(f, 'movie'));
             const series = rawSeries.slice(0, 10).map(s => formatItem(s, 'tv'));
-            const generos = Object.values(GENRE_MAP).sort();
 
             res.render('frontoffice/index', { 
                 pageTitle: "Home", pageStyle: "homepage", pageScript: "home",
@@ -93,6 +98,76 @@ class HomeController {
         } catch (error) {
             console.error(error);
             res.status(500).send("Erro ao carregar perfil.");
+        }
+    }
+
+    async search(req, res) {
+        try {
+            const { q, genre } = req.query;
+
+            // 1. Validação: se não há nada, volta para home
+            if (!q && !genre) return res.redirect('/');
+
+            let results = [];
+
+            // 2. Lógica de Pesquisa
+            if (q) {
+                // Se tem texto, usa a pesquisa multi (texto + filmes/series)
+                results = await tmdbService.search(q);
+            } else if (genre) {
+                // Se SÓ tem género, usa a busca GLOBAL por género (Discover)
+                const genreId = Object.keys(GENRE_MAP).find(key => GENRE_MAP[key] === genre);
+                
+                if (genreId) {
+                    results = await tmdbService.discoverGlobal(genreId);
+                }
+            }
+
+            // 3. Prepara Generos com isSelected para o Select funcionar
+            const generos = Object.values(GENRE_MAP).sort().map(gName => ({
+                name: gName,
+                isSelected: gName === genre
+            }));
+
+            const formatItem = (item) => {
+                const date = item.release_date || item.first_air_date;
+                return {
+                    ...item,
+                    type: item.media_type, // discoverGlobal add isto manualmente no service
+                    release_year: date ? date.split('-')[0] : 'N/A',
+                    genero: item.genre_ids && item.genre_ids.length > 0 ? getGenreName(item.genre_ids[0]) : "Geral",
+                    vote_average: item.vote_average ? item.vote_average.toFixed(1) : "0.0",
+                    idioma: item.original_language ? item.original_language.toUpperCase() : "N/A"
+                };
+            };
+
+            let list = results.map(formatItem);
+
+            // 4. Se houver Texto E Género, filtra os resultados da pesquisa textual
+            if (q && genre) {
+                list = list.filter(item => item.genero === genre);
+            }
+
+            // 5. Separa e envia para a view
+            const filmes = list.filter(i => i.type === 'movie');
+            const series = list.filter(i => i.type === 'tv');
+
+            res.render('frontoffice/index', { 
+                pageTitle: q ? "Resultados para: " + q : "Categoria: " + genre,
+                pageStyle: "homepage",
+                pageScript: "home",
+                filmes, 
+                series, 
+                generos,
+                isSearch: true,
+                query: q,
+                selectedGenre: genre,
+                user: req.user,
+                menuHome: true
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Erro na busca.");
         }
     }
 }

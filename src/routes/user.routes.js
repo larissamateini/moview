@@ -16,4 +16,6 @@ router.get('/details/:type/:id', homeController.details);
 // Perfil
 router.get('/profile', homeController.profile);
 
+router.get('/search', homeController.search);
+
 module.exports = router;

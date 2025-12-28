@@ -64,7 +64,11 @@ main {
             padding-top: 2px;
         }
     }
+}
 
+.search-input-wrapper:focus-within {
+    border-color: var(--color-light-100);
+    box-shadow: 0 0 8px rgba(128, 0, 255, 0.299);
 }
 
 select {
@@ -83,14 +87,18 @@ select {
     background-position: right 20px center;
     background-size: 16px;
     cursor: pointer;
+
+    &:focus-within {
+        border-color: var(--color-light-100);
+        box-shadow: 0 0 8px rgba(128, 0, 255, 0.299);
+    }
 }
 
 select option {
-    background-color: var(--color-grey-100);
+    background-color: var(--color-light-200);
     color: var(--color-dark-300);
     font-family: var(--font-family-base);
-    font-size: var(--font-size-base-sm);
-    letter-spacing: 2px;
+    font-size: var(--font-size-base-xsm);
 }
 
 #movies-grid, #series-grid {
@@ -132,6 +140,7 @@ select option {
     transition: var(--transition-base);
 
     &:hover {
+        box-shadow: 0 0 8px rgba(62, 25, 97, 0.128);
         transform: scale(1.05);
         cursor: pointer;
     }
