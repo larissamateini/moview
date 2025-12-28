@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-// Configurações base do TMDB
 const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3',
     params: {
@@ -10,7 +9,6 @@ const api = axios.create({
 });
 
 const tmdbService = {
-    // Buscar filmes populares para a Homepage
     getPopularMovies: async () => {
         try {
             const response = await api.get('/movie/popular');
@@ -20,8 +18,6 @@ const tmdbService = {
             return [];
         }
     },
-
-    // Buscar séries populares para a Homepage
     getPopularShows: async () => {
         try {
             const response = await api.get('/tv/popular');
@@ -31,17 +27,24 @@ const tmdbService = {
             return [];
         }
     },
-
-    // Buscar detalhes de um conteúdo específico (para a página de detalhes)
     getDetails: async (type, id) => {
         try {
-            // detalhes, créditos (elenco/direção) e vídeos
             const response = await api.get(`/${type}/${id}`, {
                 params: {
-                    append_to_response: 'credits,videos,release_dates,content_ratings'
+                    append_to_response: 'credits,videos,release_dates,content_ratings',
+                    include_video_language: 'pt-PT,en-US,en' 
                 }
             });
-            return response.data;
+            
+            let data = response.data;
+
+            // FALLBACK: Se a sinopse estiver vazia em PT, busca em EN
+            if (!data.overview || data.overview.trim() === "") {
+                const enRes = await api.get(`/${type}/${id}`, { params: { language: 'en-US' } });
+                data.overview = enRes.data.overview;
+            }
+
+            return data;
         } catch (error) {
             console.error("Erro ao buscar detalhes no TMDB:", error);
             return null;
@@ -62,4 +65,4 @@ function getGenreName(id) {
     return GENRE_MAP[id] || 'Geral';
 }
 
-module.exports = {tmdbService, getGenreName};
+module.exports = { tmdbService, getGenreName, GENRE_MAP };

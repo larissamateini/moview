@@ -27,7 +27,7 @@
 
             <div class="movie-details-two">
                 <span class="movie-genre">
-                    {{#item.genres}}{{name}}, {{/item.genres}}
+                    {{item.genres_string}}
                 </span>
                 <div class="info-two">
                     <span class="movie-release-year">{{item.release_year}}</span>
@@ -67,7 +67,7 @@
         </iframe>
         {{/trailerKey}}
         {{^trailerKey}}
-        <p>Trailer indisponível no momento.</p>
+            <p>Trailer indisponível no momento.</p>
         {{/trailerKey}}
     </section>
 

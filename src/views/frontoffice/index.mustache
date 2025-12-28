@@ -1,83 +1,82 @@
 {{> partials/frontoffice/header }}
 
-    <main>
-        <div class="search-container">
-            <div class="search-input-wrapper">
-                <input type="text" placeholder="pesquise pelo nome" id="name-search" name="name-search">
-                <button type="submit" id="search-btn">
-                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
-                </button>
-            </div>
-            <select name="genero-search" id="genero-search">
-                <option value="" disabled selected>filtre por género</option>
-                <option value="terror">Terror</option>
-                <option value="comedia">Comédia</option>
-                <option value="drama">Drama</option>
-            </select>
+<main>
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <input type="text" placeholder="pesquise pelo nome" id="name-search" name="name-search">
+            <button type="submit" id="search-btn">
+                <img src="/public/images/icon-search.svg" alt="Pesquisar">
+            </button>
         </div>
+        <select name="genero-search" id="genero-search">
+            <option value="" selected>todos os géneros</option>
+            {{#generos}}
+            <option value="{{.}}">{{.}}</option>
+            {{/generos}}
+        </select>
+    </div>
 
-        <div class="content-area">
-
-            <div id="movies-grid">
-                <h2>Filmes Populares</h2>
-                <div class="cards-container">
-                    {{#filmes}}
-                    <div class="card" onclick="window.location.href='/details/movie/{{id}}'">
-                        <img class="card-img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}">
-                        <div class="card-info">
-                            <div class="name-and-fav">
-                                <h3>{{title}}</h3>
-                                <button class="fav-btn">
-                                    <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
-                                </button>
-                            </div>
-                            <div class="genre-and-rating">
-                                <span class="movie-genre">{{genero}}</span>
-                                    <div class="rating-wrapper">
-                                        <img src="/public/images/icon-star.svg" alt="Estrela">
-                                        <span>{{vote_average}}</span>
-                                    </div>
-                            </div>
-                            <div class="tags-wrapper">
-                                <span class="tag">{{release_date}}{{first_air_date}}</span>
-                                <span class="tag">{{idioma}}</span>
+    <div class="content-area">
+        <div id="movies-grid">
+            <h2>Filmes Populares</h2>
+            <div class="cards-container">
+                {{#filmes}}
+                <div class="card" data-genre="{{genero}}" onclick="window.location.href='/details/movie/{{id}}'">
+                    <img class="card-img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}">
+                    <div class="card-info">
+                        <div class="name-and-fav">
+                            <h3>{{title}}</h3>
+                            <button class="fav-btn">
+                                <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
+                            </button>
+                        </div>
+                        <div class="genre-and-rating">
+                            <span class="movie-genre">{{genero}}</span>
+                            <div class="rating-wrapper">
+                                <img src="/public/images/icon-star.svg" alt="Estrela">
+                                <span>{{vote_average}}</span>
                             </div>
                         </div>
-                    </div>
-                    {{/filmes}}
-                </div>
-            </div>
-
-            <div id="series-grid">
-                <h2>Séries Populares</h2>
-                <div class="cards-container">
-                    {{#series}}
-                    <div class="card" onclick="window.location.href='/details/tv/{{id}}'">
-                        <img class="card-img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{name}}">
-                        <div class="card-info">
-                            <div class="name-and-fav">
-                                <h3>{{name}}</h3>
-                                <button class="fav-btn">
-                                    <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
-                                </button>
-                            </div>
-                            <div class="genre-and-rating">
-                                <span class="movie-genre">{{genero}}</span>
-                                <div class="rating-wrapper">
-                                    <img src="/public/images/icon-star.svg" alt="Estrela">
-                                    <span>{{vote_average}}</span>
-                                </div>
-                            </div>
-                            <div class="tags-wrapper">
-                                <span class="tag">{{release_date}}{{first_air_date}}</span>
-                                <span class="tag">{{idioma}}</span>
-                            </div>
+                        <div class="tags-wrapper">
+                            <span class="tag">{{release_year}}</span>
+                            <span class="tag">{{idioma}}</span>
                         </div>
                     </div>
-                    {{/series}}
                 </div>
+                {{/filmes}}
             </div>
         </div>
-    </main>
+
+        <div id="series-grid">
+            <h2>Séries Populares</h2>
+            <div class="cards-container">
+                {{#series}}
+                <div class="card" data-genre="{{genero}}" onclick="window.location.href='/details/tv/{{id}}'">
+                    <img class="card-img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{name}}">
+                    <div class="card-info">
+                        <div class="name-and-fav">
+                            <h3>{{name}}</h3>
+                            <button class="fav-btn">
+                                <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
+                            </button>
+                        </div>
+                        <div class="genre-and-rating">
+                            <span class="movie-genre">{{genero}}</span>
+                            <div class="rating-wrapper">
+                                <img src="/public/images/icon-star.svg" alt="Estrela">
+                                <span>{{vote_average}}</span>
+                            </div>
+                        </div>
+                        <div class="tags-wrapper">
+                            <span class="tag">{{release_year}}</span>
+                            <span class="tag">{{idioma}}</span>
+                        </div>
+                    </div>
+                </div>
+                {{/series}}
+            </div>
+        </div>
+    </div>
+</main>
 
 {{> partials/frontoffice/footer }}

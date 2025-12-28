@@ -13,6 +13,7 @@
     --color-grey-200: #4D585E;
 
     --color-dark-300: #192227;
+    --color-dark-400: #0d1214;
     --color-dark-500: #000405;
 
     --color-linear-bg: linear-gradient(180deg, var(--color-dark-300) 0%, var(--color-dark-500) 100%);

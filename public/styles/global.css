@@ -33,19 +33,19 @@ header {
     z-index: 1000;
 
     background-color: var(--color-dark-300);
-    padding: 16px 124px;
+    padding: 12px 124px;
 }
 
 .wrapped-header-logo a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
 
     > img {
-        width: 26px;
-        height: 26px;
+        width: 24px;
+        height: 24px;
     }
 }
 
@@ -53,7 +53,7 @@ header {
     display: flex;
     align-items: center;
     gap: 0px;
-    font-size: var(--font-size-logo-md);
+    font-size: var(--font-size-base-xlg);
     color: var(--color-light-100);
     margin-top: 4px;
     letter-spacing: 4px;
@@ -95,7 +95,7 @@ header nav ul {
 }
 
 header nav ul li a {
-    font-size: var(--font-size-base-sm);
+    font-size: 16px;
     font-weight: var(--font-weight-thin);
     text-transform: uppercase;
     letter-spacing: 1.8px;

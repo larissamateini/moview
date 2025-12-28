@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const favButtons = document.querySelectorAll('.favorite-btn');
     favButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const img = this.querySelector('img');
+            const img = btn.querySelector('img');
             if (img.src.includes('empty')) {
                 img.src = '/public/images/icon-fav-full.svg';
             } else {

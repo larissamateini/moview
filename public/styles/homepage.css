@@ -28,6 +28,7 @@ main {
     justify-content: space-between;
     gap: 20px;
     width: 100%;
+    margin-top: 80px;
 }
 
 .search-container .search-input-wrapper {
@@ -36,17 +37,17 @@ main {
     align-items: center;
     width: 50%;
 
-    padding: 10px 20px;
+    padding: 8px 18px;
     background-color: var(--color-dark-500);
-    border: 1px solid var(--color-light-200);
+    border: 1.6px solid var(--color-grey-100);
     border-radius: var(--border-radius);
     
     > input {
         flex: 1;
         border: none;
         background-color: transparent;
-        color: var(--color-light-200);
-        font-size: var(--font-size-base-sm);
+        color: var(--color-light-100);
+        font-size: 16px;
         outline: none;
     }
 
@@ -58,8 +59,9 @@ main {
         transition: var(--transition-fast);
 
         > img {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
+            padding-top: 2px;
         }
     }
 
@@ -70,16 +72,16 @@ select {
     padding: 10px 20px;
     color: var(--color-grey-100);
     background-color: var(--color-dark-500);
-    font-size: var(--font-size-base-sm);
+    font-size: 16px;
     
-    border: 1px solid var(--color-light-200);
+    border: 1.6px solid var(--color-grey-100);
     border-radius: var(--border-radius);
 
     appearance: none;
     background-image: url('../../public/images/arrow-down.svg');
     background-repeat: no-repeat;
     background-position: right 20px center;
-    background-size: 20px;
+    background-size: 16px;
     cursor: pointer;
 }
 
@@ -107,7 +109,7 @@ select option {
         font-weight: var(--font-weight-regular);
         letter-spacing: 2px;
         text-transform: uppercase;
-        margin-top: 32px;
+        margin-top: 0px;
     }
 }
 
@@ -131,6 +133,7 @@ select option {
 
     &:hover {
         transform: scale(1.05);
+        cursor: pointer;
     }
 }
 
