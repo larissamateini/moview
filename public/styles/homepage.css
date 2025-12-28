@@ -68,7 +68,7 @@ main {
 
 .search-input-wrapper:focus-within {
     border-color: var(--color-light-100);
-    box-shadow: 0 0 8px rgba(128, 0, 255, 0.299);
+    box-shadow: 1px 1px 8px rgba(7, 7, 7, 0.059);
 }
 
 select {
@@ -90,7 +90,7 @@ select {
 
     &:focus-within {
         border-color: var(--color-light-100);
-        box-shadow: 0 0 8px rgba(128, 0, 255, 0.299);
+        box-shadow: 0 0 8px rgba(202, 202, 202, 0.059);
     }
 }
 
@@ -140,7 +140,7 @@ select option {
     transition: var(--transition-base);
 
     &:hover {
-        box-shadow: 0 0 8px rgba(62, 25, 97, 0.128);
+        box-shadow: 0 0 8px rgba(202, 202, 202, 0.059);
         transform: scale(1.05);
         cursor: pointer;
     }

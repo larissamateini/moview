@@ -21,20 +21,13 @@ function verifyAuth(requiredRole = null) {
             req.userId = decoded.id; // Mantemos por compatibilidade
             req.userRole = decoded.role;
 
-            // 2. Lógica de Separação Estrita (Redirecionamento Inteligente)
+            // 2. Lógica de Separação
             if (requiredRole) {
-                // Se a rota exige 'admin' mas sou 'user' -> Manda para Home ou 403
                 if (requiredRole === 'admin' && req.userRole !== 'admin') {
-                    return res.status(403).render('frontoffice/index', { // Ou redirect '/'
-                        error: "Acesso não autorizado.",
+                    return res.status(403).render('frontoffice/index', {
+                        error: "Acesso não autorizado. Esta área é reservada a administradores.",
                         user: req.user
                     }); 
-                }
-
-                // Se a rota exige 'user' (Frontoffice) mas sou 'admin' -> Manda para Backoffice
-                // O teu requisito: "usuário admin somente ao backoffice"
-                if (requiredRole === 'user' && req.userRole === 'admin') {
-                    return res.redirect('/backoffice/conteudos');
                 }
             }
 

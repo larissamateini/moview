@@ -23,8 +23,14 @@ class AuthController {
                     SECRET,
                     { expiresIn: '1h' }
                 );
+                
                 res.cookie('token', token, { httpOnly: true });
-                return res.redirect('/');
+                
+                if (user.role === 'admin') {
+                    return res.redirect('/backoffice/conteudos');
+                } else {
+                    return res.redirect('/');
+                }
             }
 
             res.render('frontoffice/login', { error: "Login inválido", pageTitle: "Login" });
