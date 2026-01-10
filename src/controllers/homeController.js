@@ -1,6 +1,8 @@
 const { tmdbService, getGenreName, GENRE_MAP } = require('../services/tmdbService');
 const Utilizador = require('../models/Utilizador');
 const Review = require('../models/Review');
+const Conteudo = require('../models/Conteudo');
+const Favorito = require('../models/Favorito');
 
 class HomeController {
     async index(req, res) {
@@ -10,7 +12,6 @@ class HomeController {
                 tmdbService.getPopularShows()
             ]);
 
-            // Mapeamento de géneros para o Select da Home funcionar também
             const generos = Object.values(GENRE_MAP).sort().map(gName => ({
                 name: gName,
                 isSelected: false
@@ -31,9 +32,15 @@ class HomeController {
             const filmes = rawFilmes.slice(0, 10).map(f => formatItem(f, 'movie'));
             const series = rawSeries.slice(0, 10).map(s => formatItem(s, 'tv'));
 
-            res.render('frontoffice/index', { 
-                pageTitle: "Home", pageStyle: "homepage", pageScript: "home",
-                filmes, series, generos, user: req.user, menuHome: true 
+            res.render('frontoffice/index', {
+                pageTitle: "Home", 
+                pageStyle: "homepage", 
+                pageScript: "front_interactions", // Alterado para o novo script central
+                filmes, 
+                series, 
+                generos, 
+                user: req.user, 
+                menuHome: true
             });
         } catch (error) {
             console.error(error);
@@ -46,7 +53,20 @@ class HomeController {
             const { type, id } = req.params;
             const item = await tmdbService.getDetails(type, id);
             if (!item) return res.status(404).send("Conteúdo não encontrado.");
-            
+
+            const localConteudo = await Conteudo.getByTmdbId(id, type === 'tv' ? 'tv' : 'movie');
+            let reviews = [];
+
+            if (localConteudo) {
+                reviews = await Review.getByContentId(localConteudo.id);
+            }
+
+            let isFavorite = false;
+            if (req.user) {
+                // IMPORTANTE: O teu método Favorito.isFavorite deve aceitar o tmdb_id
+                isFavorite = await Favorito.isFavorite(req.user.id, id); 
+            }
+
             const director = item.credits?.crew.find(person => person.job === 'Director');
             const cast = item.credits?.cast.slice(0, 3).map(actor => actor.name).join(', ');
             const trailer = item.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
@@ -62,23 +82,28 @@ class HomeController {
             }
 
             const releaseDate = item.release_date || item.first_air_date;
-            const reviews = await Review.getByContentId(id);
 
             res.render('frontoffice/details', {
-                pageTitle: item.title || item.name, 
+                pageTitle: item.title || item.name,
                 pageStyle: "details",
-                pageScript: "details",
+                pageScript: "front_interactions", // Alterado para o novo script central
                 item: {
                     ...item,
+                    media_type: type,
                     genres_string: genresFormatted,
                     release_year: releaseDate ? releaseDate.split('-')[0] : 'N/A',
                     vote_average: item.vote_average ? item.vote_average.toFixed(1) : "0.0",
                     director: director ? director.name : "Desconhecido",
                     main_cast: cast,
-                    classification: classification
+                    classification: classification,
+                    tmdb_id: item.id,
+                    overview: item.overview,
+                    poster_path: item.poster_path,
+                    backdrop_path: item.backdrop_path
                 },
                 trailerKey: trailer ? trailer.key : null,
                 reviews: reviews,
+                isFavorite: isFavorite,
                 user: req.user
             });
         } catch (error) {
@@ -91,9 +116,12 @@ class HomeController {
         try {
             const userData = await Utilizador.getById(req.user.id);
             if (!userData) return res.redirect('/login');
-            res.render('frontoffice/profile', { 
-                pageTitle: "Meu Perfil", pageStyle: "profile", pageScript: "profile",
-                user: { ...req.user, ...userData }, menuProfile: true
+            res.render('frontoffice/profile', {
+                pageTitle: "Meu Perfil", 
+                pageStyle: "profile", 
+                pageScript: "front_interactions", // Alterado para o novo script central
+                user: { ...req.user, ...userData }, 
+                menuProfile: true
             });
         } catch (error) {
             console.error(error);
@@ -103,27 +131,19 @@ class HomeController {
 
     async search(req, res) {
         try {
-            const { q, genre } = req.query;
-
-            // 1. Validação: se não há nada, volta para home
+            const q = req.query.q || req.query['name-search'];
+            const genre = req.query.genre || req.query['genero-search'];
+            
             if (!q && !genre) return res.redirect('/');
-
             let results = [];
 
-            // 2. Lógica de Pesquisa
             if (q) {
-                // Se tem texto, usa a pesquisa multi (texto + filmes/series)
                 results = await tmdbService.search(q);
             } else if (genre) {
-                // Se SÓ tem género, usa a busca GLOBAL por género (Discover)
                 const genreId = Object.keys(GENRE_MAP).find(key => GENRE_MAP[key] === genre);
-                
-                if (genreId) {
-                    results = await tmdbService.discoverGlobal(genreId);
-                }
+                if (genreId) results = await tmdbService.discoverGlobal(genreId);
             }
 
-            // 3. Prepara Generos com isSelected para o Select funcionar
             const generos = Object.values(GENRE_MAP).sort().map(gName => ({
                 name: gName,
                 isSelected: gName === genre
@@ -133,7 +153,7 @@ class HomeController {
                 const date = item.release_date || item.first_air_date;
                 return {
                     ...item,
-                    type: item.media_type, // discoverGlobal add isto manualmente no service
+                    type: item.media_type,
                     release_year: date ? date.split('-')[0] : 'N/A',
                     genero: item.genre_ids && item.genre_ids.length > 0 ? getGenreName(item.genre_ids[0]) : "Geral",
                     vote_average: item.vote_average ? item.vote_average.toFixed(1) : "0.0",
@@ -142,22 +162,19 @@ class HomeController {
             };
 
             let list = results.map(formatItem);
-
-            // 4. Se houver Texto E Género, filtra os resultados da pesquisa textual
             if (q && genre) {
                 list = list.filter(item => item.genero === genre);
             }
 
-            // 5. Separa e envia para a view
             const filmes = list.filter(i => i.type === 'movie');
             const series = list.filter(i => i.type === 'tv');
 
-            res.render('frontoffice/index', { 
+            res.render('frontoffice/index', {
                 pageTitle: q ? "Resultados para: " + q : "Categoria: " + genre,
                 pageStyle: "homepage",
-                pageScript: "home",
-                filmes, 
-                series, 
+                pageScript: "front_interactions",
+                filmes,
+                series,
                 generos,
                 isSearch: true,
                 query: q,

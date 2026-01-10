@@ -3,15 +3,13 @@ const jwt = require('jsonwebtoken');
 const SECRET = process.env.JWT_SECRET;
 
 class AuthController {
-    // GET: Formulário de login
     loginForm(req, res) {
-        res.render('frontoffice/login', { 
-            pageTitle: "Login", 
+        res.render('frontoffice/login', {
+            pageTitle: "Login",
             pageStyle: "form"
         });
     }
 
-    // POST: Processar o login
     async login(req, res) {
         const { email, password } = req.body;
         try {
@@ -23,9 +21,10 @@ class AuthController {
                     SECRET,
                     { expiresIn: '1h' }
                 );
-                
+
                 res.cookie('token', token, { httpOnly: true });
-                
+
+                // Redirecionamento baseado no prefixo definido no app.js (/backoffice)
                 if (user.role === 'admin') {
                     return res.redirect('/backoffice/conteudos');
                 } else {
@@ -33,28 +32,42 @@ class AuthController {
                 }
             }
 
-            res.render('frontoffice/login', { error: "Login inválido", pageTitle: "Login" });
+            res.render('frontoffice/login', {
+                error: "Login inválido",
+                pageTitle: "Login",
+                pageStyle: "form"
+            });
         } catch (err) {
+            console.error(err);
             res.status(500).send("Erro no servidor");
         }
     }
 
-    // GET: Formulário de registo
     signupForm(req, res) {
-        res.render('frontoffice/signup', { 
+        res.render('frontoffice/signup', {
             pageTitle: "Registo",
-            pageStyle: "form" 
+            pageStyle: "form"
         });
     }
 
-    // POST: Criar novo utilizador
     async signup(req, res) {
+        const { password, confirmPassword, role, fullName, email, username } = req.body;
+
+        if (password !== confirmPassword) {
+            return res.render('frontoffice/signup', {
+                error: "As senhas não coincidem.",
+                pageTitle: "Registo",
+                pageStyle: "form"
+            });
+        }
+
         try {
-            await Utilizador.register(req.body);
+            await Utilizador.register({ fullName, email, username, password, role }); 
             res.redirect('/login');
         } catch (err) {
+            console.error(err);
             if (err.code === 'ER_DUP_ENTRY') {
-                return res.render('frontoffice/signup', { 
+                return res.render('frontoffice/signup', {
                     error: "O username ou email já estão em uso.",
                     pageTitle: "Registo",
                     pageStyle: "form"
@@ -64,7 +77,6 @@ class AuthController {
         }
     }
 
-    // GET: Logout
     logout(req, res) {
         res.clearCookie('token');
         res.redirect('/login');

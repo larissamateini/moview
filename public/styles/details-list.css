@@ -1,0 +1,161 @@
+/* Layout Geral */
+.details-page {
+    display: flex;
+    flex-direction: column;
+    min-width: 550px;
+    height: 85vh;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabeçalho: Seta + Título LISTA */
+.page-title-and-back-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin: 60px 0 30px 0;
+}
+
+.page-title-and-back-btn h1 {
+    font-size: var(--font-size-title-2);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-light-200);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    margin: 0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn img {
+    width: 22px;
+    height: 20px;
+}
+
+.back-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Card Principal (Nome e Descrição da Lista) */
+.list-details-card {
+    background-color: var(--color-dark-300);
+    border-radius: var(--border-radius, 8px);
+    padding: 30px 40px;
+    box-shadow: var(--shadow-sm);
+}
+
+.list-header-info {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 20px;
+}
+
+.list-name {
+    color: var(--color-primary);
+    font-family: var(--font-family-base);
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    font-weight: var(--font-weight-regular);
+}
+
+.list-description-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.desc-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--color-grey-200);
+    font-weight: bold;
+}
+
+.desc-text {
+    color: var(--color-grey-100);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Listagem de Filmes/Séries Internos */
+.inner-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.inner-item-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.02);
+    padding: 15px 25px;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.inner-item-card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Info do Filme (Poster + Nome) */
+.inner-item-card .item-info {
+    display: flex;
+    flex-direction: row; /* Importante: alinha horizontalmente */
+    align-items: center;
+    gap: 15px;
+}
+
+.inner-item-card .item-title {
+    color: var(--color-light-200);
+    font-size: 1rem;
+    font-weight: var(--font-weight-regular);
+    margin: 0;
+}
+
+/* Ações (Botões Remover e Ver) */
+.inner-item-card .item-actions {
+    display: flex;
+    gap: 30px;
+}
+
+.text-action-btn {
+    background: none;
+    border: none;
+    color: var(--color-grey-100);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-xsm);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.text-action-btn:hover {
+    color: var(--color-light-100);
+}
+
+.btn-remove:hover {
+    color: #ff5353;
+}
+
+.empty-msg {
+    color: var(--color-grey-200);
+    text-align: center;
+    padding: 40px 0;
+    font-style: italic;
+}

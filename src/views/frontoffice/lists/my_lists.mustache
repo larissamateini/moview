@@ -1,0 +1,56 @@
+{{> partials/frontoffice/header }}
+<main class="lists-page"> 
+    <div class="admin-header"> 
+        <div class="page-title-and-back-btn">
+            <button class="back-btn" onclick="history.back()">
+                <img src="/public/images/icon-back.svg" alt="Voltar">
+            </button>
+            <h1>Listas</h1>
+        </div>
+        <a href="/listas/criar" class="admin-btn-add">CRIAR LISTA</a>
+    </div>
+
+    <div class="content-area">
+        <div class="custom-list-container">
+            {{#listas}}
+            <div class="custom-list-item">
+                <div class="item-info">
+                    <h3 class="item-title-text">{{nome}}</h3>
+                    <p>{{descricao}}</p>
+                </div>
+                
+                <div class="item-actions">
+                    <a href="/lista/{{id}}" class="text-action-btn">DETALHES</a>
+                    <a href="/listas/editar/{{id}}" class="text-action-btn">EDITAR</a>
+                    <button class="text-action-btn btn-remove" onclick="removeList('{{id}}')">REMOVER</button>
+                </div>
+            </div>
+            {{/listas}}
+            
+            {{^listas}}
+            <p class="empty-msg">Não tens nenhuma lista criada.</p>
+            {{/listas}}
+        </div>
+    </div>
+</main>
+
+<script>
+    async function removeList(id) {
+        if(!confirm("Tem certeza que deseja apagar esta lista?")) return;
+
+        try {
+            // Como no teu controller usas o ID da URL, criamos o form dinamicamente
+            const form = document.createElement('form');
+            form.method = 'POST';
+            // Verificamos se a tua rota de delete é POST (comum em Express para forms)
+            form.action = '/listas/delete/' + id; 
+            document.body.appendChild(form);
+            form.submit();
+        } catch (err) {
+            console.error(err);
+            alert("Erro ao processar.");
+        }
+    }
+</script>
+
+{{> partials/frontoffice/footer }}

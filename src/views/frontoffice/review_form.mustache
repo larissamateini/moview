@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/public/styles/review.css">
+
+{{> partials/frontoffice/header }}
+
+<main>
+    <div class="page-title-and-back-btn">
+        <button class="back-btn" onclick="history.back()">
+            <img src="/public/images/icon-back.svg" alt="Voltar">
+        </button>
+        <h1>REVIEW</h1>
+    </div>
+
+    <div class="content-area">
+        <form action="/review" method="POST" class="review-card">
+            <!-- Hidden inputs vital for findOrCreate logic in backend -->
+            <input type="hidden" name="tmdb_id" value="{{tmdb_id}}">
+            <input type="hidden" name="media_type" value="{{media_type}}">
+            <input type="hidden" name="title" value="{{item.title}}">
+            <input type="hidden" name="name" value="{{item.title}}"> <!-- Fallback -->
+            <input type="hidden" name="overview" value="{{item.overview}}">
+            <input type="hidden" name="poster_path" value="{{item.poster_path}}">
+            <input type="hidden" name="backdrop_path" value="{{item.backdrop_path}}">
+            <input type="hidden" name="release_date" value="{{item.release_year}}-01-01"> <!-- Approx date if needed -->
+
+            <div class="form-grid">
+                <div class="form-column">
+                    <div class="input-group">
+                        <label>Filme/Série</label>
+                        <input type="text" value="{{item.title}}" readonly class="readonly-input">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="classificacao">Avaliação (1-10)</label>
+                        <div class="select-wrapper">
+                            <select id="classificacao" name="classificacao" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="input-group">
+                        <label for="critica">Comentário</label>
+                        <textarea id="critica" name="critica" rows="6" placeholder="Diga o que achou..." required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="admin-btn-save" style="margin-top: 20px;">PUBLICAR</button>
+
+        </form>
+    </div>
+</main>
+{{> partials/frontoffice/footer }}

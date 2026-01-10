@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro - Moview</title>
+    <link rel="stylesheet" href="/public/styles/global.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            color: white;
+        }
+        .error-title {
+            font-size: 3rem;
+            color: #d11234;
+            margin-bottom: 20px;
+        }
+        .error-msg {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+        .btn-home {
+            padding: 10px 20px;
+            background-color: #6C63FF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="background-color: #1a1a2e;">
+    <div class="error-container">
+        <h1 class="error-title">OOPS!</h1>
+        <p class="error-msg">{{message}}</p>
+        <a href="/" class="btn-home">Voltar à Página Inicial</a>
+    </div>
+</body>
+</html>

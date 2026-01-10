@@ -1,0 +1,58 @@
+{{> partials/frontoffice/header }}
+
+<main>
+    <div class="page-title-and-back-btn">
+        <button class="back-btn" onclick="history.back()">
+            <img src="/public/images/icon-back.svg" alt="Voltar">
+        </button>
+        <h1>EDITAR LISTA</h1>
+    </div>
+
+    <div class="content-area">
+        <form action="/listas/editar/{{lista.id}}" method="POST" class="edit-list-card">
+            
+            <div class="form-grid">
+                <div class="form-column">
+                    <div class="input-group">
+                        <label for="nome">Nome da lista</label>
+                        <input type="text" id="nome" name="nome" value="{{lista.nome}}">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" rows="5">{{lista.descricao}}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="input-group">
+                        <label>Adicione dos seus favoritos</label>
+                        <div class="search-input-wrapper">
+                            <select id="favoritos-select" style="width: 100%; background: black; color: var(--color-grey-100); border: 1px solid var(--color-dark-500); border-radius: 4px; padding: 12px 15px;">
+                                <option value="">Selecione um filme/série...</option>
+                                {{#favoritos}}
+                                    <option value="{{id}}" data-nome="{{nome}}">{{nome}} ({{tipo}})</option>
+                                {{/favoritos}}
+                            </select>
+                            <button type="button" id="add-fav-tag-btn" class="add-btn">+</button>
+                        </div>
+                    </div>
+
+                    <label style="color: var(--color-light-200); font-size: var(--font-size-base-sm);">Itens na lista:</label>
+                    <div id="selected-items-list" class="selected-items-container">
+                        {{#itensAtuais}}
+                        <div class="item-tag" data-preexistente="true">
+                            <span>{{nome}}</span>
+                            <button type="button" class="remove-tag" data-id="{{id}}">✕</button>
+                        </div>
+                        {{/itensAtuais}}
+                    </div>
+
+                    <input type="hidden" name="itens_ids" id="itens_ids_input">
+
+                    <button type="submit" class="btn-primary-full">GUARDAR ALTERAÇÕES</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>

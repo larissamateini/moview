@@ -1,0 +1,62 @@
+{{> partials/frontoffice/header }}
+
+<main class="favorites-page"> <section class="page-header">
+        <button class="back-btn" onclick="history.back()">
+            <img src="/public/images/icon-back.svg" alt="Voltar">
+        </button>
+        <h1>FAVORITOS</h1>
+    </section>
+
+    <section class="favorites-container">
+        {{#favoritos}}
+        <div class="fav-card">
+            <div class="fav-info">
+                {{#poster_path}}
+                <img src="https://image.tmdb.org/t/p/w92{{poster_path}}" alt="{{nome}}">
+                {{/poster_path}}
+                <h3>{{nome}}</h3>
+            </div>
+            
+            <div class="fav-actions">
+                <button class="btn-desfavoritar" onclick="removeFavorite('{{tmdb_id}}')">
+                    DESFAVORITAR
+                </button>
+                
+                <a href="/review/{{tipo}}/{{tmdb_id}}" class="btn-review-link">
+                    EFETUAR REVIEW
+                </a>
+            </div>
+        </div>
+        {{/favoritos}}
+
+        {{^favoritos}}
+        <p class="empty-msg">Você ainda não tem favoritos.</p>
+        {{/favoritos}}
+    </section>
+</main>
+<script>
+    async function removeFavorite(tmdbId) {
+        if(!confirm("Deseja remover este item dos favoritos?")) return;
+
+        try {
+            const response = await fetch(`/favoritos/delete/${tmdbId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Recarrega a página para o item desaparecer da lista
+                location.reload();
+            } else {
+                alert("Erro ao remover dos favoritos.");
+            }
+        } catch (err) {
+            console.error("Erro:", err);
+            alert("Erro de conexão ao servidor.");
+        }
+    }
+</script>
+
+{{> partials/frontoffice/footer }}

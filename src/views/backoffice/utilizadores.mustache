@@ -1,66 +1,72 @@
 {{> partials/backoffice/header }}
+<main class="admin-main">
+    <div class="admin-header">
+        <h1>Gestão de Utilizadores</h1>
+    </div>
 
-    <main class="admin-main">
-        <div class="admin-header">
-            <h1>Gestão de Utilizadores</h1>
-            <a href="/backoffice/utilizadores/new" class="admin-btn-add">
-                <span>+</span> Adicionar
-            </a>
-        </div>
-
-        <div class="search-container admin-filters">
-            <div class="search-input-wrapper">
-                <input type="text" placeholder="pesquise por id" id="admin-search">
-                <button type="submit">
-                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
-                </button>
+    <div class="search-container admin-filters">
+        <form action="/backoffice/utilizadores" method="GET" style="display:flex; width:100%; gap:20px;">
+            <div class="search-input-wrapper" style="flex: 1;">
+                <input type="number" name="id_filter" value="{{id_filter}}" placeholder="Pesquisar por ID do Utilizador...">
+                <button type="submit"><img src="/public/images/icon-search.svg" alt="Pesquisar"></button>
             </div>
-            <select name="role-filter" id="role-filter">
-                <option value="all">tipo de utilizador</option>
-                <option value="user">Comum</option>
-                <option value="admin">Administrador</option>
+
+            <select name="role" onchange="this.form.submit()" style="flex: 1;">
+                <option value="">Todos os tipos (User / Admin)</option>
+                <option value="user" {{#isUserSelected}}selected{{/isUserSelected}}>Comum (User)</option>
+                <option value="admin" {{#isAdminSelected}}selected{{/isAdminSelected}}>Administrador (Admin)</option>
             </select>
-        </div>
+        </form>
+    </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="th-id">ID</th>
-                        <th class="th-user-name">Nome</th>
-                        <th class="th-username">Username</th>
-                        <th>Email</th>
-                        <th>Utilizador</th>
-                        <th class="th-registration-date">Data de Registo</th>
-                        <th class="th-actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#data}}
-                    <tr class="user-row" data-id="{{id}}" data-role="{{role}}">
-                        <td>#{{id}}</td>
-                        <td class="primary-text">{{name}}</td>
-                        <td><span class="primary-text">{{username}}</span></td>
-                        <td>{{email}}</td>
-                        <td>
-                            <span class="badge {{#isAdmin}}badge-admin{{/isAdmin}} {{#isUser}}badge-user{{/isUser}}">
-                                {{role}}
-                            </span>
-                        </td>
-                        <td>{{data_registo}}</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Detalhes" onclick="verDetalhes('{{id}}')">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Editar" onclick="editarUser('{{id}}')">&#9998;</button>
-                            <a href="/backoffice/utilizadores/delete/{{id}}" class="btn-action btn-delete" title="Apagar" onclick="return confirm('Apagar utilizador?')">&#128465;</a>
-                        </td>
-                    </tr>
-                    {{/data}}
-                    {{^data}}
-                    <tr><td colspan="7" style="text-align: center;">Nenhum utilizador encontrado.</td></tr>
-                    {{/data}}
-                </tbody>
-            </table>
-        </div>
-    </main>
-
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="th-id">ID</th>
+                    <th class="th-user-name">Nome / Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th class="th-actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                <tr id="user-row-{{id}}"> 
+                    <td>#{{id}}</td>
+                    <td class="primary-text">
+                        {{name}} <br>
+                        <small style="color:#888">@{{username}}</small>
+                    </td>
+                    <td>{{email}}</td>
+                    <td>
+                        <span class="badge {{#isAdmin}}badge-admin{{/isAdmin}} {{^isAdmin}}badge-user{{/isAdmin}}">
+                            {{role}}
+                        </span>
+                    </td>
+                    <td class="actions-cell">
+                        {{#isMe}}
+                            <span title="Sua conta" style="color: #666; font-size: 0.8rem;">(Tu)</span>
+                        {{/isMe}}
+                        
+                        {{^isMe}}
+                            <button class="btn-action btn-delete" onclick="deleteUser('{{id}}')" title="Apagar Utilizador">
+                                &#128465;
+                            </button>
+                        {{/isMe}}
+                    </td>
+                </tr>
+                {{/data}}
+                {{^data}}
+                <tr>
+                    <td colspan="5" style="text-align:center; padding: 40px; color: #888;">
+                        Nenhum utilizador encontrado com estes critérios.
+                    </td>
+                </tr>
+                {{/data}}
+            </tbody>
+        </table>
+    </div>
+</main>
+<script src="/public/js/admin_users.js"></script>
 {{> partials/backoffice/footer }}

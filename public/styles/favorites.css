@@ -1,0 +1,148 @@
+/* --- public/css/favoritos.css --- */
+
+/* Layout da Página */
+.favorites-page {
+    min-width: 500px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-top: 40px;
+    height: 80vh;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    margin: 30px 0;
+
+    > h1 {
+        font-size: var(--font-size-title-2);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-light-200);
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 3px;
+    }
+
+    > .back-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+
+        > img {
+            width: 22px;
+            height: 20px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+/* Container da Lista */
+.favorites-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* O Card de Favorito */
+.fav-card {
+    min-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    background: var(--color-dark-300);
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    transition: var(--transition-base);
+}
+
+.fav-card:hover {
+    background: var(--color-dark-500); /* Um pouco mais claro no hover */
+    border-color: var(--color-grey-200);
+    transform: translateX(5px);
+}
+
+/* Lado Esquerdo: Poster + Título */
+.fav-info {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.fav-info img {
+    height: 70px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+}
+
+.fav-info h3 {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-xsm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-primary); /* Roxo principal */
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Lado Direito: Botões de Ação */
+.fav-actions {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Espaço largo entre os botões conforme a imagem */
+}
+
+/* Botão DESFAVORITAR (Borda Branca) */
+.btn-desfavoritar {
+    background: none;
+    border: none;
+    color: var(--color-light-100);
+    padding: 8px 16px;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-xsm);
+    font-weight: var(--font-weight-regular);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: var(--transition-fast);
+    letter-spacing: .8px;
+}
+
+.btn-desfavoritar:hover {
+    color: var(--color-grey-100);
+}
+
+/* Botão EFETUAR REVIEW (Texto Roxo) */
+.btn-review-link {
+    color: var(--color-light-200);
+    text-decoration: none;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base-xsm);
+    font-weight: var(--font-weight-regular);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: var(--transition-fast);
+}
+
+.btn-review-link:hover {
+    color: var(--color-secondary);
+}
+
+/* Mensagem de lista vazia */
+.empty-msg {
+    color: var(--color-grey-100);
+    text-align: center;
+    margin-top: 50px;
+    font-style: italic;
+}

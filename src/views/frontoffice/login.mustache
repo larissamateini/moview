@@ -3,6 +3,11 @@
     <div class="div-form">
         <h1>LogIn</h1>
         <form action="/login" method="POST">
+            {{#error}}
+            <div class="error-box" style="background: rgba(255, 0, 0, 0.2); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                {{error}}
+            </div>
+            {{/error}}
             <div class="wrapped-input">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="seuemail@email.com" required>
@@ -14,7 +19,7 @@
             </div>
 
             <button type="submit">Entrar</button>
-            <p>Ainda não é cadastrado? <a href="/signup">SignIn</a></p>
+            <p>Ainda não é cadastrado? <a href="/signup">SignUp</a></p>
         </form>
     </div>
 

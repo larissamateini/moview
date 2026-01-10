@@ -10,6 +10,11 @@
     <div class="div-form signup">
         <h1>Sign Up</h1>
         <form action="/signup" method="POST">
+            {{#error}}
+            <div class="error-box" style="background: rgba(255, 0, 0, 0.2); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                {{error}}
+            </div>
+            {{/error}}
             <div class="scroll-wrapper">
                 <div class="wrapped-input su-input">
                     <label for="fullName">Nome</label>

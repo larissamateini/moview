@@ -27,7 +27,12 @@
                     <div class="card-info">
                         <div class="name-and-fav">
                             <h3>{{title}}</h3>
-                            <button class="fav-btn">
+                            <button class="btn-fav" 
+                                    data-id="{{id}}" 
+                                    data-title="{{title}}" 
+                                    data-poster="{{poster_path}}" 
+                                    data-type="movie" 
+                                    data-overview="{{overview}}">
                                 <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
                             </button>
                         </div>
@@ -60,7 +65,12 @@
                     <div class="card-info">
                         <div class="name-and-fav">
                             <h3>{{name}}</h3>
-                            <button class="fav-btn">
+                            <button class="btn-fav" 
+                                    data-id="{{id}}" 
+                                    data-title="{{name}}" 
+                                    data-poster="{{poster_path}}" 
+                                    data-type="tv" 
+                                    data-overview="{{overview}}">
                                 <img src="/public/images/icon-fav-empty.svg" alt="Favorito">
                             </button>
                         </div>

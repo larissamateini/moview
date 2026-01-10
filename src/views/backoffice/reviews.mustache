@@ -1,72 +1,93 @@
 {{> partials/backoffice/header }}
 
-    <main class="admin-main">
-        <div class="admin-header">
-            <h1>Gestão de Reviews</h1>
-            <a href="/admin/reviews/new" class="admin-btn-add">
-                <span>+</span> Adicionar
-            </a>
-        </div>
+<main class="admin-main">
+    <div class="admin-header">
+        <h1>Gestão de Reviews</h1>
+    </div>
 
-        <div class="search-container admin-filters">
+    <div class="search-container admin-filters">
+        <form action="/backoffice/reviews" method="GET" style="display:flex; width:100%; gap:20px;">
             <div class="search-input-wrapper">
-                <input type="text" placeholder="pesquise por conteúdo ou utilizador" id="admin-search">
-                <button type="submit">
-                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
-                </button>
+                <input type="text" name="q" value="{{query}}" placeholder="pesquise no conteúdo da crítica">
+                <button type="submit"><img src="/public/images/icon-search.svg" alt="Pesquisar"></button>
             </div>
-            <select name="rating-filter" id="rating-filter">
-                <option value="all">filtre por rating</option>
-                <option value="5">5 Estrelas</option>
-                <option value="4">4 Estrelas ou Mais</option>
-                <option value="3">3 Estrelas ou Mais</option>
-            </select>
-        </div>
+        </form>
+    </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="th-id">ID</th>
-                        <th class="th-content-title">Conteúdo</th>
-                        <th class="th-user-name">Utilizador</th>
-                        <th class="th-rating">Rating</th>
-                        <th>Votos</th>
-                        <th class="th-comment-text">Comentário</th>
-                        <th class="th-actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#201</td>
-                        <td class="primary-text">Pulp Fiction</td>
-                        <td>João Silva</td>
-                        <td>4.8</td>
-                        <td>124</td>
-                        <td class="comment-preview">Filme clássico, diálogos insuperáveis. A história é genial!</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="th-id">ID</th>
+                    <th>Utilizador</th>
+                    <th>Filme/Série</th>
+                    <th class="th-rating">Rating</th>
+                    <th>Comentário</th>
+                    <th class="th-actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                <tr id="review-row-{{id}}">
+                    <td>#{{id}}</td>
+                    <td class="primary-text">{{utilizador_nome}}</td>
+                    <td>{{conteudo_nome}}</td>
+                    <td>
+                        <span class="badge badge-diretor">{{classificacao}}/10</span>
+                    </td>
+                    <td class="comment-preview" title="{{critica}}">{{critica}}</td>
+                    <td class="actions-cell">
+                        <button class="btn-action btn-delete" onclick="deleteReview('{{id}}')" title="Apagar">&#128465;</button>
+                    </td>
+                </tr>
+                {{/data}}
+                {{^data}}
+                <tr>
+                    <td colspan="6" style="text-align:center; padding: 40px; color: #888;">Nenhuma review encontrada.</td>
+                </tr>
+                {{/data}}
+            </tbody>
+        </table>
+    </div>
+</main>
 
-                    <tr>
-                        <td>#205</td>
-                        <td class="primary-text">Brooklyn Nine-Nine</td>
-                        <td>Ana Sofia</td>
-                        <td>5.0</td>
-                        <td>89</td>
-                        <td class="comment-preview">A melhor série de comédia de todos os tempos. Nove-Nove!</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Ver Detalhes/Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+<script>
+async function deleteReview(id) {
+    if (!confirm('Deseja eliminar esta crítica permanentemente?')) return;
+
+    try {
+        // Faz a chamada ao teu Controller (ReviewController.delete)
+        const response = await fetch(`/backoffice/reviews/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        const result = await response.json();
+
+        // Verifica se o Controller respondeu com success: true
+        if (response.ok && result.success) {
+            const row = document.getElementById(`review-row-${id}`);
+            if (row) {
+                // Efeito visual simples antes de remover
+                row.style.backgroundColor = "#ffe6e6";
+                row.style.transition = "opacity 0.3s ease";
+                row.style.opacity = "0";
+                
+                setTimeout(() => {
+                    row.remove();
+                    // Opcional: se a tabela ficar vazia após remover, recarregar para mostrar a mensagem "vazio"
+                    if (document.querySelectorAll('tbody tr').length === 0) {
+                        window.location.reload();
+                    }
+                }, 300);
+            }
+        } else {
+            alert("Erro ao eliminar: " + (result.error || "Erro desconhecido"));
+        }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+        alert("Erro de ligação ao servidor.");
+    }
+}
+</script>
 
 {{> partials/backoffice/footer }}

@@ -1,0 +1,249 @@
+/* --- Página Criar Lista --- */
+main {
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+}
+
+.content-area {
+    background-color: var(--color-dark-300);
+    padding: 24px;
+    border-radius: var(--border-radius);
+}
+
+.page-title-and-back-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    margin: 30px 0;
+
+    > h1 {
+        font-size: var(--font-size-title-2);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-light-200);
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 3px;
+    }
+
+    > .back-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+
+        > img {
+            width: 22px;
+            height: 20px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.create-list-card {
+    background-color: var(--color-dark-300);
+    border-radius: var(--border-radius);
+    padding: 50px;
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+    gap: 60px;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Labels e Inputs */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group label {
+    color: var(--color-light-100);
+    font-size: var(--font-size-base-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+.input-group input, 
+.input-group textarea {
+    background-color: black;
+    border: 1px solid var(--color-dark-500);
+    border-radius: 4px;
+    padding: 12px 15px;
+    color: var(--color-grey-100);
+    font-family: inherit;
+}
+
+.input-group textarea {
+    resize: none;
+}
+
+/* Campo de busca com botão + */
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.add-btn {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--color-grey-100);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Tags de itens selecionados */
+.selected-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 100px; /* Garante espaço mesmo vazio */
+}
+
+.item-tag {
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-tag span {
+    color: var(--color-primary);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+}
+
+.remove-tag {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* Botão Criar (Roxo) */
+.btn-primary-full {
+    background-color: var(--color-primary);
+    color: black;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: auto; /* Empurra para o fundo da coluna */
+    transition: var(--transition-fast);
+}
+
+.btn-primary-full:hover {
+    filter: brightness(1.1);
+}
+
+/**/
+/* --- Ajuste no Dropdown de Pesquisa Rápida --- */
+.search-input-wrapper {
+    position: relative; /* Necessário para o dropdown posicionar-se em relação a isto */
+}
+
+/* Contentor de resultados que aparece ao clicar no + */
+.edit-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-dark-400);
+    border: 1px solid var(--color-dark-500);
+    border-radius: 4px;
+    z-index: 10;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    margin-top: 5px;
+}
+
+.edit-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-dark-300);
+    transition: var(--transition-fast);
+}
+
+.edit-result-item:hover {
+    background-color: var(--color-dark-300);
+}
+
+.edit-result-item span {
+    color: var(--color-light-100);
+    font-size: var(--font-size-base-xsm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+/* Botão de confirmação dentro do dropdown */
+.add-now-btn {
+    background-color: var(--color-primary);
+    color: black;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.add-now-btn:hover {
+    filter: brightness(1.2);
+}
+
+/* Garantir que o container de tags tenha sempre altura mínima */
+.selected-items-container {
+    min-height: 120px;
+    align-content: flex-start; /* Evita que as tags fiquem espalhadas */
+}
+
+/* Remove a seta padrão do select na página de criar lista */
+.search-input-wrapper select {
+    -webkit-appearance: none; /* Safari e Chrome */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Padrão moderno */
+    
+    /* Garante que o texto não fique colado à direita onde estaria a seta */
+    padding-right: 40px !important; 
+    cursor: pointer;
+}
+
+/* Remove a seta no IE */
+.search-input-wrapper select::-ms-expand {
+    display: none;
+}

@@ -1,0 +1,72 @@
+{{> partials/frontoffice/header }}
+
+<main class="details-page">
+    <div class="page-title-and-back-btn">
+        <button class="back-btn" onclick="history.back()">
+            <img src="/public/images/icon-back.svg" alt="Voltar">
+        </button>
+        <h1>DETALHES DA LISTA</h1>
+    </div>
+
+    <div class="content-area">
+        <div class="list-details-card">
+            
+            <div class="list-header-info">
+                <h2 class="list-name">{{lista.nome}}</h2>
+                
+                <div class="list-description-block">
+                    <span class="desc-label">Descrição</span>
+                    <p class="desc-text">{{lista.descricao}}</p>
+                </div>
+            </div>
+
+            <div class="inner-items-container">
+                {{#itens}} <div class="inner-item-card">
+                    <div class="item-info">
+                        {{#poster_path}}
+                        <img src="https://image.tmdb.org/t/p/w92{{poster_path}}" alt="{{nome}}" style="height:60px; border-radius:4px; margin-right:15px;">
+                        {{/poster_path}}
+                        <h3 class="item-title">{{nome}}</h3>
+                    </div>
+
+                    <div class="item-actions">
+                        <button class="text-action-btn btn-remove" onclick="removeItem('{{lista.id}}', '{{id}}')">REMOVER</button>
+                        <a href="/details/{{tipo}}/{{tmdb_id}}" class="text-action-btn">VER</a>
+                    </div>
+                </div>
+                {{/itens}}
+                
+                {{^itens}}
+                    <p class="empty-msg">Esta lista ainda não tem filmes ou séries.</p>
+                {{/itens}}
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script>
+    async function removeItem(listaId, conteudoId) {
+        if(!confirm("Remover filme da lista?")) return;
+
+        try {
+            const response = await fetch('/listas/remove-item', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lista_id: listaId, conteudo_id: conteudoId })
+            });
+            
+            const result = await response.json();
+            if(result.success) {
+                location.reload();
+            } else {
+                alert("Erro ao remover.");
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Erro de conexão.");
+        }
+    }
+</script>
+
+{{> partials/frontoffice/footer }}

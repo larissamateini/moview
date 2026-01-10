@@ -226,7 +226,7 @@ main {
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
-        gap: 12px;
+        gap: 8px;
 
         background-color: var(--color-dark-300);
         border-radius: var(--border-radius);
@@ -316,4 +316,9 @@ main {
     line-height: 1.4;
     text-align: justify;
     letter-spacing: .8px;
+}
+
+.star-icon {
+    color: var(--color-orange-100);
+    text-shadow: 0 0 10px rgba(255, 175, 83, 0.4); /* Glow suave com a tua cor orange-100 */
 }

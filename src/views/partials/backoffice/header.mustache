@@ -11,10 +11,10 @@
 
         <nav>
             <ul>
-                <li><a href="/backoffice/conteudos" class="admin-menu active">Conteúdos</a></li>
-                <li><a href="/backoffice/utilizadores" class="admin-menu">Utilizadores</a></li>
-                <li><a href="/backoffice/reviews" class="admin-menu">Reviews</a></li>
-                <li><a href="/backoffice/diretores-atores" class="admin-menu">Diretores & Atores</a></li>
+                <li><a href="/backoffice/conteudos" class="admin-menu {{#isContent}}active{{/isContent}}">Conteúdos</a></li>
+                <li><a href="/backoffice/utilizadores" class="admin-menu {{#isUsers}}active{{/isUsers}}">Utilizadores</a></li>
+                <li><a href="/backoffice/reviews" class="admin-menu {{#isReviews}}active{{/isReviews}}">Reviews</a></li>
+                <li><a href="/backoffice/diretores-atores" class="admin-menu {{#isStaff}}active{{/isStaff}}">Diretores & Atores</a></li>
                 <li><a href="/logout" class="admin-menu">Sair</a></li>
             </ul>
         </nav>

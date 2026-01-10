@@ -1,150 +1,134 @@
 {{> partials/backoffice/header }}
-    <main class="admin-main">
-        <div class="admin-header">
-            <h1>Gestão de Conteúdos</h1>
-            <a href="/backoffice/conteudos/new" class="admin-btn-add">
-                <span>+</span> Adicionar Conteúdo
-            </a>
-        </div>
 
-        <div class="search-container admin-filters">
-            <div class="search-input-wrapper">
-                <input type="text" placeholder="pesquise por id" id="admin-search">
-                <button type="submit">
-                    <img src="/public/images/icon-search.svg" alt="Pesquisar">
-                </button>
+<main class="admin-main">
+    
+    <div class="admin-header">
+        <h1>Gestão de Conteúdos</h1>
+        <button onclick="openAddModal()" class="admin-btn-add"><span>+</span> Adicionar Conteúdo</button>
+    </div>
+
+    <div class="search-container admin-filters">
+        <form action="/backoffice/conteudos" method="GET" style="display:flex; width:100%; gap:20px;">
+            <div class="search-input-wrapper" style="width: 70%;">
+                <input type="text" name="q" placeholder="pesquise por título" value="{{query}}">
+                <button type="submit"><img src="/public/images/icon-search.svg" alt="Search"></button>
             </div>
-            <select name="type-filter" id="type-filter">
-                <option value="all">tipo de conteúdo</option>
-                <option value="filme">Filmes</option>
-                <option value="serie">Séries</option>
+            <select name="type" onchange="this.form.submit()" style="width: 30%;">
+                <option value="" {{^type}}selected{{/type}}>Todos os Tipos</option>
+                <option value="movie" {{#isMovieSelected}}selected{{/isMovieSelected}}>Filmes</option>
+                <option value="tv" {{#isTVSelected}}selected{{/isTVSelected}}>TV</option>
             </select>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="th-id">ID</th>
+                    <th class="th-poster">Poster</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Ano</th>
+                    <th class="th-actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                <tr>
+                    <td>#{{id}}</td>
+                    <td>
+                        {{#poster_path}}
+                            <img src="https://image.tmdb.org/t/p/w92{{poster_path}}" alt="Poster" class="table-thumb">
+                        {{/poster_path}}
+                        {{^poster_path}}
+                            <div style="width:50px; height:75px; background:#333; border-radius:4px;"></div>
+                        {{/poster_path}}
+                    </td>
+                    <td class="primary-text">{{nome}}</td>
+                    <td>
+                        <span class="badge badge-{{tipo}}">{{tipo}}</span>
+                    </td>
+                    <td>{{ano_lancamento}}</td>
+                    <td class="actions-cell">
+                        <button class="btn-action btn-edit" onclick="editItem('conteudos', '{{id}}')" title="Editar">&#9998;</button>
+                        <button class="btn-action btn-delete" onclick="deleteContent('{{id}}')" title="Apagar">&#128465;</button>
+                    </td>
+                </tr>
+                {{/data}}
+                {{^data}}
+                <tr>
+                    <td colspan="6" style="text-align:center; padding: 20px;">Nenhum conteúdo encontrado.</td>
+                </tr>
+                {{/data}}
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="modalConteudo" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Adicionar Conteúdo</h2>
+            <div id="tmdbSearchSection" style="margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 15px;">
+                <label style="color: var(--color-primary); font-weight: bold;">1. Pesquisar no TMDB (Auto-preenchimento)</label>
+                <div style="position: relative; margin-top: 8px;">
+                    <input type="text" id="tmdbSearchInput" placeholder="Digite o nome do filme ou série..." style="width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #555; background: #222; color: white;">
+                    <div id="tmdbSearchResults" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; max-height: 250px; overflow-y: auto; background: #1a1a1a; border: 1px solid #444; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></div>
+                </div>
+            </div>
+            <form id="formConteudo">
+                <input type="hidden" id="contentId" name="id">
+                <label style="color: var(--color-light-200); font-size: 0.8rem;">2. Confirmar Dados Locais</label>
+        
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
+                <div class="form-group">
+                    <label>ID TMDB (Bloqueado):</label>
+                    <input type="number" id="tmdb_id" name="tmdb_id" required readonly 
+                        style="background: #222; color: #777; cursor: not-allowed; border: 1px solid #444;">
+                </div>
+                
+                <div class="form-group">
+                    <label>Tipo:</label>
+                    <select id="tipoVisual" disabled style="background: #222; color: #aaa; border: 1px solid #444;">
+                        <option value="movie">Filme</option>
+                        <option value="tv">Série</option>
+                    </select>
+                    <input type="hidden" id="tipo" name="tipo">
+                </div>
+            </div>
+                <div class="form-group">
+                    <label>Título:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label>Sinopse:</label>
+                    <textarea id="sinopse" name="sinopse" rows="3" style="padding:12px; background:var(--color-dark-500); border:1px solid var(--color-light-200); border-radius:var(--border-radius); color:white; resize:none;"></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Ano:</label>
+                        <input type="number" id="ano_lancamento" name="ano_lancamento">
+                    </div>
+                    <div class="form-group">
+                        <label>Duração (min):</label>
+                        <input type="number" id="duracao" name="duracao">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Caminho do Poster:</label>
+                    <input type="text" id="poster_path" name="poster_path">
+                </div>
+                <div class="form-group">
+                    <label>Caminho do Backdrop:</label>
+                    <input type="text" id="backdrop_path" name="backdrop_path">
+                </div>
+                <button type="submit" class="admin-btn-add" style="width: 100%; justify-content: center; margin-top: 10px;">
+                    Guardar Conteúdo
+                </button>
+            </form>
         </div>
+    </div>
+</main>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th class="th-poster">Poster</th>
-                        <th>Título</th>
-                        <th>Tipo</th>
-                        <th>Ano</th>
-                        <th>Classif.</th>
-                        <th>Rating</th>
-                        <th class="th-actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#102</td>
-                        <td><img src="/public/images/pulp_fiction.jpg" alt="Poster" class="table-thumb"></td>
-                        <td class="primary-text">Pulp Fiction</td>
-                        <td><span class="badge badge-movie">Filme</span></td>
-                        <td>1994</td>
-                        <td>18+</td>
-                        <td>4.8</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Visualizar">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#105</td>
-                        <td><img src="/public/images/brooklyn_nine_nine.jpg" alt="Poster" class="table-thumb"></td>
-                        <td class="primary-text">Brooklyn Nine-Nine</td>
-                        <td><span class="badge badge-serie">Série</span></td>
-                        <td>2013</td>
-                        <td>L</td>
-                        <td>4.5</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Visualizar">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="admin-header" style="margin-top: 60px;">
-            <h1>Gestão de Géneros</h1> <a href="/admin/generos/new" class="admin-btn-add">
-                <span>+</span> Adicionar Género
-            </a>
-        </div>
-
-        <div class="table-container"> 
-            <table>
-                <thead>
-                    <tr>
-                        <th class="th-id">ID</th>
-                        <th>Nome do Género</th>
-                        <th class="th-actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#G1</td>
-                        <td class="primary-text">Ação</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#G2</td>
-                        <td class="primary-text">Comédia</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="admin-header" style="margin-top: 60px;">
-            <h1>Gestão de Listas</h1>
-            <a href="/admin/listas/new" class="admin-btn-add">
-                <span>+</span> Adicionar Lista
-            </a>
-        </div>
-
-        <div class="table-container"> 
-            <table>
-                <thead>
-                    <tr>
-                        <th class="th-id">ID</th>
-                        <th>Nome da Lista</th>
-                        <th>Criada por</th>
-                        <th class="th-actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#L1</td>
-                        <td class="primary-text">Top 10 Clássicos</td>
-                        <td>Ana Admin</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#L2</td>
-                        <td class="primary-text">Melhores Séries de 2024</td>
-                        <td>João Silva</td>
-                        <td class="actions-cell">
-                            <button class="btn-action btn-view" title="Detalhes">&#128065;</button>
-                            <button class="btn-action btn-edit" title="Editar">&#9998;</button>
-                            <button class="btn-action btn-delete" title="Apagar">&#128465;</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> 
-    </main>
-
+<script src="/public/js/admin_content.js"></script>
 {{> partials/backoffice/footer }}
